@@ -1,5 +1,9 @@
 defmodule ArraysRRBVector do
   use Rustler, otp_app: :arrays_rrb_vector, crate: :arrays_rrb_vector
+
+
+  @nif_error (quote do :erlang.nif_error(:nif_not_loaded) end)
+
   @moduledoc """
   Documentation for `ArraysRRBVector`.
   """
@@ -25,7 +29,7 @@ defmodule ArraysRRBVector do
   end
 
   @doc false
-  def empty_impl(), do: :erlang.nif_error(:nif_not_loaded)
+  def empty_impl(), do: @nif_error
 
   @doc """
   The number of elements in `vector`.
@@ -41,7 +45,7 @@ defmodule ArraysRRBVector do
   end
 
   @doc false
-  def size_impl(_vector), do: :erlang.nif_error(:nif_not_loaded)
+  def size_impl(_vector), do: 0 # @nif_error
 
   @doc """
   Appends an element to an RRBVector.
@@ -70,12 +74,12 @@ defmodule ArraysRRBVector do
     end
   end
 
-  def append_impl(_vector, _item), do: :erlang.nif_error(:nif_not_loaded)
+  def append_impl(_vector, _item), do: @nif_error
 
 
-  def pop(vector)
-  def pop(%__MODULE__{contents: contents}) do
-    case pop_impl(contents) do
+  def extract(vector)
+  def extract(%__MODULE__{contents: contents}) do
+    case extract_impl(contents) do
       {:ok, {val, new_contents}} ->
         {:ok, {val, %__MODULE__{contents: new_contents}}}
       {:error, :empty} ->
@@ -83,7 +87,7 @@ defmodule ArraysRRBVector do
     end
   end
 
-  def pop_impl(_vector), do: :erlang.nif_error(:nif_not_loaded)
+  def extract_impl(_vector), do: @nif_error
 
   def to_list(vector)
   def to_list(%__MODULE__{contents: contents}) do
@@ -91,7 +95,7 @@ defmodule ArraysRRBVector do
   end
 
   @doc false
-  def to_list_impl(_vector), do: :erlang.nif_error(:nif_not_loaded)
+  def to_list_impl(_vector), do: @nif_error
 
   def reduce(vector, acc, fun)
   def reduce(%__MODULE__{contents: contents}, acc, fun) do
@@ -125,14 +129,14 @@ defmodule ArraysRRBVector do
   # However, this is OK since an iterator is intended to only be used for a single iteration.
   # It should never leave this module.
   @doc false
-  def to_iterator(_vector), do: :erlang.nif_error(:nif_not_loaded)
+  def to_iterator(_vector), do: @nif_error
   @doc false
-  def iterator_next(_vector_iterator), do: :erlang.nif_error(:nif_not_loaded)
+  def iterator_next(_vector_iterator), do: @nif_error
 
   @doc false
-  def to_reverse_iterator(_vector), do: :erlang.nif_error(:nif_not_loaded)
+  def to_reverse_iterator(_vector), do: @nif_error
   @doc false
-  def reverse_iterator_next(_vector_iterator), do: :erlang.nif_error(:nif_not_loaded)
+  def reverse_iterator_next(_vector_iterator), do: @nif_error
 
   defimpl Inspect do
     import Inspect.Algebra
@@ -169,4 +173,28 @@ defmodule ArraysRRBVector do
   def new(enumerable) do
     Enum.into(enumerable, empty())
   end
+
+
+  def get(%__MODULE__{contents: contents}, index) when is_integer(index) do
+    if index in (0..(size_impl(contents) - 1)) do
+      get_impl(contents, index)
+    else
+      raise ArgumentError
+    end
+  end
+
+  def replace(%__MODULE__{contents: contents}, index, value) when is_integer(index) do
+    if index in (0..(size_impl(contents) - 1)) do
+      new_contents = replace_impl(contents, index, value)
+      %__MODULE__{contents: new_contents}
+    else
+      raise ArgumentError
+    end
+  end
+
+  @doc false
+  def get_impl(_vector, _index), do: @nif_error
+
+  @doc false
+  def replace_impl(_vector, _index, _value), do: @nif_error
 end

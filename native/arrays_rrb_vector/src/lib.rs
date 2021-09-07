@@ -182,7 +182,7 @@ fn append_impl(vector: VectorResource, term: Term) -> Result<VectorResource, Ato
 }
 
 #[rustler::nif]
-fn pop_impl(vector: VectorResource) -> Result<(StoredTerm, VectorResource), Atom> {
+fn extract_impl(vector: VectorResource) -> Result<(StoredTerm, VectorResource), Atom> {
     let mut new_vector : Vector<StoredTerm> = vector.deref().0.clone();
     match new_vector.pop_back() {
         Some(item) => Ok((item, ResourceArc::new(TermVector(new_vector)))),
@@ -231,14 +231,35 @@ fn reverse_iterator_next(iterator_pair: VectorReverseIteratorPairResource<'stati
     }
 }
 
+#[rustler::nif]
+fn get_impl(vector: VectorResource, index: usize) -> StoredTerm {
+    vector.0[index].clone()
+}
+
+#[rustler::nif]
+fn replace_impl(vector: VectorResource, index: usize, term: Term) -> VectorResource {
+    let item = convert_to_supported_term(&term);
+    let mut new_vector = vector.0.clone();
+    new_vector.set(index, item);
+    ResourceArc::new(TermVector(new_vector))
+}
+
 rustler::init!(
     "Elixir.ArraysRRBVector",
     [empty_impl,
+
      append_impl,
+     extract_impl,
+
      size_impl,
+
      to_list_impl,
+
      to_iterator,
      to_reverse_iterator,
      iterator_next,
      reverse_iterator_next,
+
+     get_impl,
+     replace_impl,
     ], load = load);
