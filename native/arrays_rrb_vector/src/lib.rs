@@ -73,8 +73,6 @@ pub enum StoredTerm {
     AnAtom(Atom),
     Tuple(Vec<StoredTerm>),
     EmptyList(),
-    // Exception(),
-    // Function(),
     List(Vec<StoredTerm>),
     Bitstring(String),
     Pid(LocalPid),
@@ -118,8 +116,8 @@ fn convert_to_supported_term(term: &Term) -> StoredTerm {
             let items = term.decode::<Vec<Term>>().unwrap();
             let converted_items =
                 items
-                .into_iter()
-                .map(|item: Term| convert_to_supported_term(&item))
+                .iter()
+                .map(convert_to_supported_term)
                 .collect();
 
             StoredTerm::List(converted_items)
@@ -132,8 +130,8 @@ fn convert_to_supported_term(term: &Term) -> StoredTerm {
             let elems = get_tuple(*term).unwrap();
             let converted_elems =
                 elems
-                .into_iter()
-                .map(|item: Term| convert_to_supported_term(&item))
+                .iter()
+                .map(convert_to_supported_term)
                 .collect();
             StoredTerm::Tuple(converted_elems)
         }
@@ -147,7 +145,6 @@ fn empty_impl() -> VectorResource {
     let new_vector = Vector::new();
     ResourceArc::new(TermVector(new_vector))
 }
-
 
 #[rustler::nif]
 fn size_impl(vector: VectorResource) -> usize {
