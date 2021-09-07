@@ -1,6 +1,6 @@
-defmodule ArraysRrbVector do
+defmodule ArraysRRBVector do
   @moduledoc """
-  Documentation for `ArraysRrbVector`.
+  Documentation for `ArraysRRBVector`.
   """
 
   @doc """
@@ -8,7 +8,7 @@ defmodule ArraysRrbVector do
 
   ## Examples
 
-      iex> ArraysRrbVector.hello()
+      iex> ArraysRRBVector.hello()
       :world
 
   """

@@ -1,8 +1,8 @@
-defmodule ArraysRrbVectorTest do
+defmodule ArraysRRBVectorTest do
   use ExUnit.Case
-  doctest ArraysRrbVector
+  doctest ArraysRRBVector
 
   test "greets the world" do
-    assert ArraysRrbVector.hello() == :world
+    assert ArraysRRBVector.hello() == :world
   end
 end
