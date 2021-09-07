@@ -60,6 +60,7 @@ defmodule ArraysRRBVector do
    - Functions
    - Integers that are larger than would fit in a signed 64-bit number.
   """
+  def append(vector, item)
   def append(%__MODULE__{contents: contents}, item) do
     case append_impl(contents, item) do
       {:ok, new_contents} ->
@@ -71,6 +72,15 @@ defmodule ArraysRRBVector do
 
   def append_impl(_vector, _item), do: :erlang.nif_error(:nif_not_loaded)
 
+
+  def pop(vector)
+  def pop(%__MODULE__{contents: contents}) do
+    pop_impl(contents)
+  end
+
+  def pop_impl(_vector), do: :erlang.nif_error(:nif_not_loaded)
+
+  def to_list(vector)
   def to_list(%__MODULE__{contents: contents}) do
     to_list_impl(contents)
   end
@@ -78,6 +88,7 @@ defmodule ArraysRRBVector do
   @doc false
   def to_list_impl(_vector), do: :erlang.nif_error(:nif_not_loaded)
 
+  def reduce(vector, acc, fun)
   def reduce(%__MODULE__{contents: contents}, acc, fun) do
     do_reduce(to_iterator(contents), acc, fun)
   end

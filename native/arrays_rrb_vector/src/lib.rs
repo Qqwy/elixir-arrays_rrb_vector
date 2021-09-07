@@ -15,6 +15,7 @@ use rustler::env::OwnedEnv;
 use rustler::env::SavedTerm;
 
 use owning_ref::OwningHandle;
+use core::ops::Deref;
 
 use im::Vector;
 
@@ -175,6 +176,15 @@ fn append_impl(vector: VectorResource, term: Term) -> Result<VectorResource, Ato
     let mut new_vector = vector.0.clone();
     new_vector.push_back(item);
     Ok(ResourceArc::new(TermVector(new_vector)))
+}
+
+#[rustler::nif]
+fn pop_impl(vector: VectorResource) -> Result<(StoredTerm, VectorResource), Atom> {
+    let mut new_vector : Vector<StoredTerm> = vector.deref().0.clone();
+    match new_vector.pop_back() {
+        Some(item) => Ok((item, ResourceArc::new(TermVector(new_vector)))),
+        None => Err(atoms::empty()),
+    }
 }
 
 #[rustler::nif]
