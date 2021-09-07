@@ -73,21 +73,21 @@ impl MutableTermBoxContents {
 
 
 #[derive(Clone)]
-pub enum SupportedTerm {
+pub enum StoredTerm {
     Integer(i64),
     Float(f64),
     AnAtom(Atom),
-    Tuple(Vec<SupportedTerm>),
+    Tuple(Vec<StoredTerm>),
     EmptyList(),
     // Exception(),
     // Function(),
-    List(Vec<SupportedTerm>),
+    List(Vec<StoredTerm>),
     Bitstring(String),
     Pid(LocalPid),
     Other(MutableTermBox),
 }
 
-pub struct TermVector(Vector<SupportedTerm>);
+pub struct TermVector(Vector<StoredTerm>);
 type VectorResource = ResourceArc<TermVector>;
 
 fn load(env: Env, _info: Term) -> bool {
@@ -95,31 +95,31 @@ fn load(env: Env, _info: Term) -> bool {
     true
 }
 
-impl Encoder for SupportedTerm {
+impl Encoder for StoredTerm {
     fn encode<'a>(&self, env: Env<'a>) -> Term<'a> {
         match self {
-            SupportedTerm::Integer(inner) => inner.encode(env),
-            SupportedTerm::Float(inner) => inner.encode(env),
-            SupportedTerm::AnAtom(inner) => inner.encode(env),
-            SupportedTerm::Tuple(inner) => {
+            StoredTerm::Integer(inner) => inner.encode(env),
+            StoredTerm::Float(inner) => inner.encode(env),
+            StoredTerm::AnAtom(inner) => inner.encode(env),
+            StoredTerm::Tuple(inner) => {
                 let terms: Vec<_> = inner.iter().map(|t| t.encode(env)).collect();
                 make_tuple(env, terms.as_ref()).encode(env)
             }
-            SupportedTerm::EmptyList() => rustler::Term::list_new_empty(env),
-            SupportedTerm::List(inner) => inner.encode(env),
-            SupportedTerm::Bitstring(inner) => inner.encode(env),
-            SupportedTerm::Pid(inner) => inner.encode(env),
-            SupportedTerm::Other(inner) => inner.get(env),
+            StoredTerm::EmptyList() => rustler::Term::list_new_empty(env),
+            StoredTerm::List(inner) => inner.encode(env),
+            StoredTerm::Bitstring(inner) => inner.encode(env),
+            StoredTerm::Pid(inner) => inner.encode(env),
+            StoredTerm::Other(inner) => inner.get(env),
         }
     }
 }
 
 
-fn convert_to_supported_term(term: &Term) -> SupportedTerm {
+fn convert_to_supported_term(term: &Term) -> StoredTerm {
     match term.get_type() {
-        rustler::TermType::Atom => term.decode().map(SupportedTerm::AnAtom).unwrap(),
-        rustler::TermType::Binary => term.decode().map(SupportedTerm::Bitstring).unwrap(),
-        rustler::TermType::EmptyList => SupportedTerm::EmptyList(),
+        rustler::TermType::Atom => term.decode().map(StoredTerm::AnAtom).unwrap(),
+        rustler::TermType::Binary => term.decode().map(StoredTerm::Bitstring).unwrap(),
+        rustler::TermType::EmptyList => StoredTerm::EmptyList(),
         rustler::TermType::List => {
             let items = term.decode::<Vec<Term>>().unwrap();
             let converted_items =
@@ -128,12 +128,12 @@ fn convert_to_supported_term(term: &Term) -> SupportedTerm {
                 .map(|item: Term| convert_to_supported_term(&item))
                 .collect();
 
-            SupportedTerm::List(converted_items)
+            StoredTerm::List(converted_items)
         },
         rustler::TermType::Number =>
-            term.decode::<i64>().map(SupportedTerm::Integer)
-            .or(term.decode::<f64>().map(SupportedTerm::Float))
-            .unwrap_or(SupportedTerm::Other(MutableTermBox::new(term))),
+            term.decode::<i64>().map(StoredTerm::Integer)
+            .or(term.decode::<f64>().map(StoredTerm::Float))
+            .unwrap_or(StoredTerm::Other(MutableTermBox::new(term))),
         rustler::TermType::Tuple => {
             let elems = get_tuple(*term).unwrap();
             let converted_elems =
@@ -141,10 +141,10 @@ fn convert_to_supported_term(term: &Term) -> SupportedTerm {
                 .into_iter()
                 .map(|item: Term| convert_to_supported_term(&item))
                 .collect();
-            SupportedTerm::Tuple(converted_elems)
+            StoredTerm::Tuple(converted_elems)
         }
-        rustler::TermType::Pid => term.decode().map(SupportedTerm::Pid).unwrap(),
-        _other => SupportedTerm::Other(MutableTermBox::new(term)),
+        rustler::TermType::Pid => term.decode().map(StoredTerm::Pid).unwrap(),
+        _other => StoredTerm::Other(MutableTermBox::new(term)),
     }
 }
 
@@ -173,7 +173,7 @@ fn append_impl(vector: VectorResource, term: Term) -> Result<VectorResource, Ato
 }
 
 #[rustler::nif]
-fn to_list_impl(vector: VectorResource) -> Vec<SupportedTerm> {
+fn to_list_impl(vector: VectorResource) -> Vec<StoredTerm> {
     vector.0.iter().cloned().collect()
 }
 
