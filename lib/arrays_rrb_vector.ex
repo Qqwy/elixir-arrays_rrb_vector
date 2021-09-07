@@ -6,7 +6,13 @@ defmodule ArraysRRBVector do
 
 
   @type t() :: %__MODULE__{}
+  # def __struct__() do
+  #   %{__struct__: __MODULE__, contents: empty_impl()}
+  # end
   defstruct [:contents]
+  # def __struct__(kv) do
+  #   Enum.reduce(kv, __struct__(), fn {k, v}, acc -> :maps.update(k, v, acc) end)
+  # end
 
   @doc """
   Returns an empty RRBVector.
@@ -106,6 +112,25 @@ defmodule ArraysRRBVector do
         Inspect.List.inspect(list, %{opts | charlists: :as_lists}),
         ">"
       ])
+    end
+  end
+
+  @doc false
+  def collectable_fun(vector, command) do
+    case command do
+      {:cont, elem} ->
+        append(vector, elem)
+      :done ->
+        vector
+      :halt ->
+        :ok
+    end
+  end
+
+
+  defimpl Collectable do
+    def into(vector) do
+      {vector, &@for.collectable_fun/2}
     end
   end
 end

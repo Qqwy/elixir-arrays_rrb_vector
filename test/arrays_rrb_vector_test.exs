@@ -9,4 +9,13 @@ defmodule ArraysRRBVectorTest do
     end)
     assert list == ArraysRRBVector.to_list(arr)
   end
+
+  describe "Collectable" do
+    test "works" do
+      arr = (1..100)
+      |> Enum.into(ArraysRRBVector.empty)
+
+      assert Enum.to_list(1..100) == ArraysRRBVector.to_list(arr)
+    end
+  end
 end
