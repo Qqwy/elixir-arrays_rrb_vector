@@ -165,4 +165,8 @@ defmodule ArraysRRBVector do
       {vector, &@for.collectable_fun/2}
     end
   end
+
+  def new(enumerable) do
+    Enum.into(enumerable, empty())
+  end
 end
