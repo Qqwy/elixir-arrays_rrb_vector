@@ -87,6 +87,7 @@ pub struct TermVector(Vector<StoredTerm>);
 type VectorResource = ResourceArc<TermVector>;
 
 pub struct VectorIteratorPair(OwningHandle<Box<Vector<StoredTerm>>, Box::<std::sync::Mutex<im::vector::Iter<'static, StoredTerm>>>>);
+pub struct VectorReverseIteratorPair(OwningHandle<Box<Vector<StoredTerm>>, Box::<std::sync::Mutex<std::iter::Rev<im::vector::Iter<'static, StoredTerm>>>>>);
 // pub struct VectorIteratorPair<'a> {
 //     vector: Vector<StoredTerm>,
 //     iterator: im::vector::Iter<'a, StoredTerm>,
@@ -94,10 +95,12 @@ pub struct VectorIteratorPair(OwningHandle<Box<Vector<StoredTerm>>, Box::<std::s
 
 // pub struct VectorIterator<'a>(im::vector::Iter<'a, StoredTerm>);
 type VectorIteratorPairResource<'a> = ResourceArc<VectorIteratorPair>;
+type VectorReverseIteratorPairResource<'a> = ResourceArc<VectorReverseIteratorPair>;
 
 fn load(env: Env, _info: Term) -> bool {
     rustler::resource!(TermVector, env);
     rustler::resource!(VectorIteratorPair, env);
+    rustler::resource!(VectorReverseIteratorPair, env);
     // rustler::resource!(VectorIterator, env);
     true
 }
@@ -195,13 +198,21 @@ fn to_list_impl(vector: VectorResource) -> Vec<StoredTerm> {
 #[rustler::nif]
 fn to_iterator(vector: VectorResource) -> VectorIteratorPairResource<'static> {
     let new_vector = Box::new(vector.0.clone());
-    // let iter = new_vector.iter();
     let oh = OwningHandle::new_with_fn(
         new_vector,
         unsafe { |vec| Box::new(std::sync::Mutex::new((*vec).iter())) }
     );
     ResourceArc::new(VectorIteratorPair(oh))
-    // ResourceArc::new(VectorIteratorPair(new_vector, new_vector.iter()})
+}
+
+#[rustler::nif]
+fn to_reverse_iterator(vector: VectorResource) -> VectorReverseIteratorPairResource<'static> {
+    let new_vector = Box::new(vector.0.clone());
+    let oh = OwningHandle::new_with_fn(
+        new_vector,
+        unsafe { |vec| Box::new(std::sync::Mutex::new((*vec).iter().rev())) }
+    );
+    ResourceArc::new(VectorReverseIteratorPair(oh))
 }
 
 #[rustler::nif]
@@ -212,4 +223,22 @@ fn iterator_next(iterator_pair: VectorIteratorPairResource<'static>) -> Result<S
     }
 }
 
-rustler::init!("Elixir.ArraysRRBVector", [empty_impl, append_impl, size_impl, to_list_impl, to_iterator, iterator_next], load = load);
+#[rustler::nif]
+fn reverse_iterator_next(iterator_pair: VectorReverseIteratorPairResource<'static>) -> Result<StoredTerm, Atom> {
+    match iterator_pair.0.lock().unwrap().next().map(|x| x.clone()) {
+        Some(val) => Ok(val),
+        None =>  Err(atoms::empty()),
+    }
+}
+
+rustler::init!(
+    "Elixir.ArraysRRBVector",
+    [empty_impl,
+     append_impl,
+     size_impl,
+     to_list_impl,
+     to_iterator,
+     to_reverse_iterator,
+     iterator_next,
+     reverse_iterator_next,
+    ], load = load);

@@ -75,7 +75,12 @@ defmodule ArraysRRBVector do
 
   def pop(vector)
   def pop(%__MODULE__{contents: contents}) do
-    pop_impl(contents)
+    case pop_impl(contents) do
+      {:ok, {val, new_contents}} ->
+        {:ok, {val, %__MODULE__{contents: new_contents}}}
+      {:error, :empty} ->
+        {:error, :empty}
+    end
   end
 
   def pop_impl(_vector), do: :erlang.nif_error(:nif_not_loaded)
@@ -101,6 +106,18 @@ defmodule ArraysRRBVector do
     end
   end
 
+  def reduce_right(vector, acc, fun)
+  def reduce_right(%__MODULE__{contents: contents}, acc, fun) do
+    do_reduce_right(to_iterator(contents), acc, fun)
+  end
+
+  defp do_reduce_right(iterator, acc, fun) do
+    case iterator_next(iterator) do
+      {:ok, val} ->
+        do_reduce_right(iterator, fun.(acc, val), fun)
+      {:error, :empty} -> acc
+    end
+  end
 
   # NOTE:
   # Iterating over the iterator is _mutable_!
@@ -109,9 +126,13 @@ defmodule ArraysRRBVector do
   # It should never leave this module.
   @doc false
   def to_iterator(_vector), do: :erlang.nif_error(:nif_not_loaded)
-
   @doc false
   def iterator_next(_vector_iterator), do: :erlang.nif_error(:nif_not_loaded)
+
+  @doc false
+  def to_reverse_iterator(_vector), do: :erlang.nif_error(:nif_not_loaded)
+  @doc false
+  def reverse_iterator_next(_vector_iterator), do: :erlang.nif_error(:nif_not_loaded)
 
   defimpl Inspect do
     import Inspect.Algebra
