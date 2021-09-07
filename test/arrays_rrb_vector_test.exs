@@ -3,7 +3,7 @@ defmodule ArraysRRBVectorTest do
   doctest ArraysRRBVector
 
   test "NIF is able to handle many types" do
-    list = [self(), 10, 10.5, "hello", [], 'world', {1, 2, 3}]
+    list = [self(), 10, 10.5, "hello", [], 'world', {1, 2, 3}, &Kernel.+/2, make_ref(), <<1>>]
     arr = Enum.reduce(list, ArraysRRBVector.empty, fn elem, acc ->
       ArraysRRBVector.append(acc, elem)
     end)

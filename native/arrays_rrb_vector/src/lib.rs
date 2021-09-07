@@ -11,6 +11,9 @@ use rustler::ResourceArc;
 use rustler::LocalPid;
 use rustler::types::tuple::get_tuple;
 
+use rustler::env::OwnedEnv;
+use rustler::env::SavedTerm;
+
 use im::Vector;
 
 mod atoms {
@@ -21,6 +24,53 @@ mod atoms {
         unsupported_type,
     }
 }
+
+// Put this in a ResourceArc:
+#[derive(Clone)]
+pub struct MutableTermBox
+{
+    inner: std::sync::Arc<std::sync::Mutex<MutableTermBoxContents>>,
+}
+
+struct MutableTermBoxContents
+{
+    owned_env: OwnedEnv,
+    saved_term: SavedTerm
+}
+
+impl MutableTermBox {
+    pub fn new(term: &Term) -> Self {
+        Self{inner: std::sync::Arc::new(std::sync::Mutex::new(MutableTermBoxContents::new(term)))}
+    }
+
+    pub fn get<'a>(&self, env: Env<'a>) -> Term<'a> {
+        let inner = self.inner.lock().unwrap();
+
+        // Copy over term from owned environment to the target environment
+        inner.owned_env.run(|inner_env| {
+            let term = inner.saved_term.load(inner_env);
+            term.in_env(env)
+        })
+    }
+
+    pub fn set(&self, term: Term) -> Atom {
+        let mut term_ptr = self.inner.lock().unwrap();
+        term_ptr.owned_env.clear();
+        term_ptr.saved_term = term_ptr.owned_env.save(term);
+
+        atoms::ok()
+    }
+}
+
+impl MutableTermBoxContents {
+    fn new(term: &Term) -> Self {
+        let owned_env = OwnedEnv::new();
+        let saved_term = owned_env.save(*term);
+        Self{owned_env: owned_env, saved_term: saved_term}
+    }
+}
+
+
 
 #[derive(Clone)]
 pub enum SupportedTerm {
@@ -34,6 +84,7 @@ pub enum SupportedTerm {
     List(Vec<SupportedTerm>),
     Bitstring(String),
     Pid(LocalPid),
+    Other(MutableTermBox),
 }
 
 pub struct TermVector(Vector<SupportedTerm>);
@@ -58,6 +109,7 @@ impl Encoder for SupportedTerm {
             SupportedTerm::List(inner) => inner.encode(env),
             SupportedTerm::Bitstring(inner) => inner.encode(env),
             SupportedTerm::Pid(inner) => inner.encode(env),
+            SupportedTerm::Other(inner) => inner.get(env),
         }
     }
 }
@@ -68,8 +120,6 @@ fn convert_to_supported_term(term: &Term) -> SupportedTerm {
         rustler::TermType::Atom => term.decode().map(SupportedTerm::AnAtom).unwrap(),
         rustler::TermType::Binary => term.decode().map(SupportedTerm::Bitstring).unwrap(),
         rustler::TermType::EmptyList => SupportedTerm::EmptyList(),
-        // rustler::TermType::Exception => SupportedTerm::Exception(),
-        // rustler::TermType::Fun => SupportedTerm::Function(),
         rustler::TermType::List => {
             let items = term.decode::<Vec<Term>>().unwrap();
             let converted_items =
@@ -80,10 +130,10 @@ fn convert_to_supported_term(term: &Term) -> SupportedTerm {
 
             SupportedTerm::List(converted_items)
         },
-        rustler::TermType::Number => match term.decode::<i64>() {
-            Ok(val) => SupportedTerm::Integer(val),
-            Err(_) => term.decode::<f64>().map(SupportedTerm::Float).unwrap(),
-        },
+        rustler::TermType::Number =>
+            term.decode::<i64>().map(SupportedTerm::Integer)
+            .or(term.decode::<f64>().map(SupportedTerm::Float))
+            .unwrap_or(SupportedTerm::Other(MutableTermBox::new(term))),
         rustler::TermType::Tuple => {
             let elems = get_tuple(*term).unwrap();
             let converted_elems =
@@ -94,68 +144,8 @@ fn convert_to_supported_term(term: &Term) -> SupportedTerm {
             SupportedTerm::Tuple(converted_elems)
         }
         rustler::TermType::Pid => term.decode().map(SupportedTerm::Pid).unwrap(),
-        // Map => todo!,
-        // Pid => todo!,
-        // Port => todo!,
-        // Ref => todo!,
-        // Unknown => todo!,
-        _other => {todo!("Support functions, exceptions, ports, maps, refs, unknown types")},
+        _other => SupportedTerm::Other(MutableTermBox::new(term)),
     }
-    
-    
-    // if term.is_number() {
-    //     match term.decode() {
-    //         Ok(i) => Some(SupportedTerm::Integer(i)),
-    //         Err(_) => match term.decode() {
-    //             Ok(f) => Some(SupportedTerm::Float(f)),
-    //             Err(_) => None,
-    //         },
-    //     }
-    // } else if term.is_atom() {
-    //     match term.atom_to_string() {
-    //         Ok(a) => Some(SupportedTerm::Atom(a)),
-    //         Err(_) => None,
-    //     }
-    // } else if term.is_tuple() {
-    //     match get_tuple(*term) {
-    //         Ok(t) => {
-    //             let initial_length = t.len();
-    //             let inner_terms: Vec<SupportedTerm> = t
-    //                 .into_iter()
-    //                 .filter_map(|i: Term| convert_to_supported_term(&i))
-    //                 .collect();
-    //             if initial_length == inner_terms.len() {
-    //                 Some(SupportedTerm::Tuple(inner_terms))
-    //             } else {
-    //                 None
-    //             }
-    //         }
-    //         Err(_) => None,
-    //     }
-    // } else if term.is_list() {
-    //     match term.decode::<Vec<Term>>() {
-    //         Ok(l) => {
-    //             let initial_length = l.len();
-    //             let inner_terms: Vec<SupportedTerm> = l
-    //                 .into_iter()
-    //                 .filter_map(|i: Term| convert_to_supported_term(&i))
-    //                 .collect();
-    //             if initial_length == inner_terms.len() {
-    //                 Some(SupportedTerm::List(inner_terms))
-    //             } else {
-    //                 None
-    //             }
-    //         }
-    //         Err(_) => None,
-    //     }
-    // } else if term.is_binary() {
-    //     match term.decode() {
-    //         Ok(b) => Some(SupportedTerm::Bitstring(b)),
-    //         Err(_) => None,
-    //     }
-    // } else {
-    //     None
-    // }
 }
 
 #[rustler::nif]
