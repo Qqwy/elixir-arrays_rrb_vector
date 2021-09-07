@@ -1,4 +1,4 @@
-# ArraysRrbVector
+# ArraysRRBVector
 
 **TODO: Add description**
 
