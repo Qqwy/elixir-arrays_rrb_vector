@@ -17,6 +17,8 @@ defmodule ArraysRRBVector do
   def empty() do
     %__MODULE__{contents: empty_impl()}
   end
+
+  @doc false
   def empty_impl(), do: :erlang.nif_error(:nif_not_loaded)
 
   @doc """
@@ -31,6 +33,8 @@ defmodule ArraysRRBVector do
   def size(%__MODULE__{contents: contents}) do
     size_impl(contents)
   end
+
+  @doc false
   def size_impl(_vector), do: :erlang.nif_error(:nif_not_loaded)
 
   @doc """
@@ -65,9 +69,32 @@ defmodule ArraysRRBVector do
     to_list_impl(contents)
   end
 
+  @doc false
   def to_list_impl(_vector), do: :erlang.nif_error(:nif_not_loaded)
 
+  def reduce(%__MODULE__{contents: contents}, acc, fun) do
+    do_reduce(to_iterator(contents), acc, fun)
+  end
 
+  defp do_reduce(iterator, acc, fun) do
+    case iterator_next(iterator) do
+      {:ok, val} ->
+        do_reduce(iterator, fun.(val, acc), fun)
+      {:error, :empty} -> acc
+    end
+  end
+
+
+  # NOTE:
+  # Iterating over the iterator is _mutable_!
+  # Specifically, `iterator_next` will return a different result.
+  # However, this is OK since an iterator is intended to only be used for a single iteration.
+  # It should never leave this module.
+  @doc false
+  def to_iterator(_vector), do: :erlang.nif_error(:nif_not_loaded)
+
+  @doc false
+  def iterator_next(_vector_iterator), do: :erlang.nif_error(:nif_not_loaded)
 
   defimpl Inspect do
     import Inspect.Algebra

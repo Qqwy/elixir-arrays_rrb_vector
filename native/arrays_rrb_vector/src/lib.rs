@@ -14,6 +14,8 @@ use rustler::types::tuple::get_tuple;
 use rustler::env::OwnedEnv;
 use rustler::env::SavedTerm;
 
+use owning_ref::OwningHandle;
+
 use im::Vector;
 
 mod atoms {
@@ -22,6 +24,7 @@ mod atoms {
         ok,
         error,
         unsupported_type,
+        empty,
     }
 }
 
@@ -82,8 +85,19 @@ pub enum StoredTerm {
 pub struct TermVector(Vector<StoredTerm>);
 type VectorResource = ResourceArc<TermVector>;
 
+pub struct VectorIteratorPair(OwningHandle<Box<Vector<StoredTerm>>, Box::<std::sync::Mutex<im::vector::Iter<'static, StoredTerm>>>>);
+// pub struct VectorIteratorPair<'a> {
+//     vector: Vector<StoredTerm>,
+//     iterator: im::vector::Iter<'a, StoredTerm>,
+// }
+
+// pub struct VectorIterator<'a>(im::vector::Iter<'a, StoredTerm>);
+type VectorIteratorPairResource<'a> = ResourceArc<VectorIteratorPair>;
+
 fn load(env: Env, _info: Term) -> bool {
     rustler::resource!(TermVector, env);
+    rustler::resource!(VectorIteratorPair, env);
+    // rustler::resource!(VectorIterator, env);
     true
 }
 
@@ -168,4 +182,24 @@ fn to_list_impl(vector: VectorResource) -> Vec<StoredTerm> {
     vector.0.iter().cloned().collect()
 }
 
-rustler::init!("Elixir.ArraysRRBVector", [empty_impl, append_impl, size_impl, to_list_impl], load = load);
+#[rustler::nif]
+fn to_iterator(vector: VectorResource) -> VectorIteratorPairResource<'static> {
+    let new_vector = Box::new(vector.0.clone());
+    // let iter = new_vector.iter();
+    let oh = OwningHandle::new_with_fn(
+        new_vector,
+        unsafe { |vec| Box::new(std::sync::Mutex::new((*vec).iter())) }
+    );
+    ResourceArc::new(VectorIteratorPair(oh))
+    // ResourceArc::new(VectorIteratorPair(new_vector, new_vector.iter()})
+}
+
+#[rustler::nif]
+fn iterator_next(iterator_pair: VectorIteratorPairResource<'static>) -> Result<StoredTerm, Atom> {
+    match iterator_pair.0.lock().unwrap().next().map(|x| x.clone()) {
+        Some(val) => Ok(val),
+        None =>  Err(atoms::empty()),
+    }
+}
+
+rustler::init!("Elixir.ArraysRRBVector", [empty_impl, append_impl, size_impl, to_list_impl, to_iterator, iterator_next], load = load);
