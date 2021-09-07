@@ -11,3 +11,5 @@ crate-type = ["cdylib"]
 
 [dependencies]
 rustler = "0.22.0"
+# serde_rustler = "0.0.3" # Not supported for OTP 24 yet.
+im = "15.0.0"
