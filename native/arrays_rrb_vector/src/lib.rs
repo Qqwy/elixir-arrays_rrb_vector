@@ -27,42 +27,36 @@ mod atoms {
 
 // Put this in a ResourceArc:
 #[derive(Clone)]
-pub struct MutableTermBox
+pub struct TermBox
 {
-    inner: std::sync::Arc<std::sync::Mutex<MutableTermBoxContents>>,
+    inner: std::sync::Arc<TermBoxContents>,
 }
 
-struct MutableTermBoxContents
+struct TermBoxContents
 {
     owned_env: OwnedEnv,
     saved_term: SavedTerm
 }
+// I believe this is OK since we never alter the TermBox
+// once it is created.
+unsafe impl Sync for TermBoxContents {}
 
-impl MutableTermBox {
+impl TermBox {
     pub fn new(term: &Term) -> Self {
-        Self{inner: std::sync::Arc::new(std::sync::Mutex::new(MutableTermBoxContents::new(term)))}
+        Self{inner: std::sync::Arc::new(TermBoxContents::new(term))}
     }
 
     pub fn get<'a>(&self, env: Env<'a>) -> Term<'a> {
-        let inner = self.inner.lock().unwrap();
 
         // Copy over term from owned environment to the target environment
-        inner.owned_env.run(|inner_env| {
-            let term = inner.saved_term.load(inner_env);
+        self.inner.owned_env.run(|inner_env| {
+            let term = self.inner.saved_term.load(inner_env);
             term.in_env(env)
         })
     }
-
-    pub fn set(&self, term: Term) -> Atom {
-        let mut term_ptr = self.inner.lock().unwrap();
-        term_ptr.owned_env.clear();
-        term_ptr.saved_term = term_ptr.owned_env.save(term);
-
-        atoms::ok()
-    }
 }
 
-impl MutableTermBoxContents {
+impl TermBoxContents {
     fn new(term: &Term) -> Self {
         let owned_env = OwnedEnv::new();
         let saved_term = owned_env.save(*term);
@@ -84,7 +78,7 @@ pub enum StoredTerm {
     List(Vec<StoredTerm>),
     Bitstring(String),
     Pid(LocalPid),
-    Other(MutableTermBox),
+    Other(TermBox),
 }
 
 pub struct TermVector(Vector<StoredTerm>);
@@ -133,7 +127,7 @@ fn convert_to_supported_term(term: &Term) -> StoredTerm {
         rustler::TermType::Number =>
             term.decode::<i64>().map(StoredTerm::Integer)
             .or(term.decode::<f64>().map(StoredTerm::Float))
-            .unwrap_or(StoredTerm::Other(MutableTermBox::new(term))),
+            .unwrap_or(StoredTerm::Other(TermBox::new(term))),
         rustler::TermType::Tuple => {
             let elems = get_tuple(*term).unwrap();
             let converted_elems =
@@ -144,7 +138,7 @@ fn convert_to_supported_term(term: &Term) -> StoredTerm {
             StoredTerm::Tuple(converted_elems)
         }
         rustler::TermType::Pid => term.decode().map(StoredTerm::Pid).unwrap(),
-        _other => StoredTerm::Other(MutableTermBox::new(term)),
+        _other => StoredTerm::Other(TermBox::new(term)),
     }
 }
 
