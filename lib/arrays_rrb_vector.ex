@@ -246,4 +246,61 @@ defmodule ArraysRRBVector do
     |> :lists.map(to_list(vector))
     |> new()
   end
+
+
+  @behaviour Access
+
+  @impl Access
+  def fetch(%__MODULE__{handle: handle}, index) when index >= 0 do
+    if index >= size_impl(handle) do
+      :error
+    else
+      {:ok, get_impl(handle, index)}
+    end
+  end
+
+  def fetch(%__MODULE__{handle: handle}, index) when index < 0 do
+    size = size_impl(handle)
+
+    if index < (-size) do
+      :error
+    else
+      {:ok, get_impl(handle, index + size)}
+    end
+  end
+
+  @undefined_pop_message """
+  There is no efficient implementation possible to remove an element from a random location in an array, so `Access.pop/2` (and returning `:pop` from `Access.get_and_update/3` ) are not supported by #{inspect(__MODULE__)}. If you want to remove the last element, use `Arrays.extract/1`.
+  """ |> String.trim
+
+  @impl Access
+  def get_and_update(%__MODULE__{handle: handle}, index, function) when index >= 0 do
+    if index >= size_impl(handle) do
+      raise ArgumentError
+    else
+      value = get_impl(handle, index)
+      case function.(value) do
+        {get, new_value} ->
+          new_handle = replace_impl(handle, index, new_value)
+          {get, %__MODULE__{handle: new_handle}}
+        :pop ->
+          raise ArgumentError, @undefined_pop_message
+      end
+    end
+  end
+
+  @impl Access
+  def get_and_update(array = %__MODULE__{handle: handle}, index, function) when index < 0 do
+    size = size_impl(handle)
+    if index < size do
+      raise ArgumentError
+    else
+      get_and_update(array, index + size, function)
+    end
+  end
+
+  @impl Access
+  def pop(%__MODULE__{}, _index) do
+    raise ArgumentError, @undefined_pop_message
+  end
 end
