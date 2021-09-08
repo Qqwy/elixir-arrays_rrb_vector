@@ -1,7 +1,7 @@
 defmodule ArraysRRBVector do
   defp nif_error(), do: :erlang.nif_error(:nif_not_loaded)
 
-  use Rustler, otp_app: :arrays_rrb_vector, crate: :arrays_rrb_vector
+  use Rustler, otp_app: :arrays_rrb_vector, crate: :arrays_rrb_vector, mode: :release
 
 
   @moduledoc """

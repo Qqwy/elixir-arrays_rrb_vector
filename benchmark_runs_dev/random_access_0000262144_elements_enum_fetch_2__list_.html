@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <title>Benchee Report</title>
+  <meta charset="utf-8">
+  <meta http-equiv="content-type" content="text/html; charset=utf8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+    <link rel="stylesheet" type="text/css" href="assets/stylesheets/benchee.css">
+    <link rel="stylesheet" type="text/css" href="assets/fontello/css/fontello.css">
+  
+</head>
+
+  <body>
+
+    <div class="header">
+  <h1>benchee report</h1>
+  
+  <span class="input-label">
+    0000262144 elements
+  </span>
+
+
+  <span class="version-note">
+  <a href="javascript:toggleSystemDataInfo();" title="Click to toggle system info">System info</a>
+</span>
+
+</div>
+
+
+    <article id="system-info" class="benchee-systeminfo" >
+  <h3>System info</h3>
+  <ul class="benchee-systeminfo-list">
+    <li>Elixir: 1.12.2</li>
+    <li>Erlang: 24.0.1</li>
+    <li>Operating system: Linux</li>
+    <li>Available memory: 7.60 GB</li>
+    <li>CPU Information: Intel(R) Core(TM) i7-6700HQ CPU @ 2.60GHz</li>
+    <li>Number of Available Cores: 8</li>
+  </ul>
+</article>
+
+
+    
+      <article>
+        <h2>
+          <a name="run_time" href="#run_time">Enum.fetch/2 (list) Run Time</a>
+          <a href="https://github.com/PragTob/benchee_html/wiki/Chart-Types#individual">
+            <i
+              class="benchee-help-icon icon-question-circle-o"
+              title="Graphs showing the individual run time distribution for Enum.fetch/2 (list).
+  Run Times Histogram shows the distribution of occurrences of specific run times in buckets.
+  Raw Run Times shows all individual recorded run times in the order they were recorded in."
+            ></i>
+          </a>
+        </h2>
+
+        <section>
+          <table>
+  <thead>
+    <tr>
+      <th class="text-left">Name</th>
+      
+        <th>Iterations per Second</th>
+      
+      <th>Average</th>
+      <th>Deviation</th>
+      <th>Median</th>
+      <th>Mode</th>
+      <th>Minimum</th>
+      <th>Maximum</th>
+      <th>Sample size</th>
+    </tr>
+  </thead>
+  <tbody>
+    
+      
+      <tr>
+        
+          <td class="text-left">Enum.fetch/2 (list)</td>
+        
+        
+          <td>1.82 K</td>
+          <td>549.87 μs</td>
+          <td>±52.67%</td>
+          <td>588.19 μs</td>
+          <td>none</td>
+          <td>3.57 μs</td>
+          <td>1097.51 μs</td>
+        
+        <td>216</td>
+      </tr>
+    
+  </tbody>
+</table>
+
+        </section>
+
+        <section class="benchee-plot-container">
+          <div id="run-times-histogram" class="plot"></div>
+        </section>
+        <section class="benchee-plot-container">
+          <div id="raw-run-times" class="plot"></div>
+        </section>
+      </article>
+    
+
+    
+
+    <footer>
+      <a href="https://github.com/PragTob/benchee" target="blank">benchee version: 1.0.1 </a>
+<br/>
+<a href="https://github.com/PragTob/benchee_html" target="blank">benchee_html version: 1.0.0</a>
+
+
+    </footer>
+
+    
+  <script src="assets/javascripts/plotly-1.30.1.min.js"></script>
+  <script src="assets/javascripts/benchee.js"></script>
+
+
+
+    <script>
+      var scenario = {"name":"Enum.fetch/2 (list)","job_name":"Enum.fetch/2 (list)","input_name":"0000262144 elements","run_time_data":{"statistics":{"absolute_difference":547009.5012626263,"average":549866.2083333334,"ips":1818.6242122989158,"maximum":1097513.0,"median":588187.0,"minimum":3572.0,"mode":null,"percentiles":{"50":588187.0,"99":1044370.97},"relative_less":0.00519527664623339,"relative_more":192.4825313633696,"sample_size":216,"std_dev":289637.772868398,"std_dev_ips":957.946239561401,"std_dev_ratio":0.5267422665348026},"samples":[588648.0,643935.0,919969.0,191693.0,49483.0,310842.0,756211.0,111546.0,364701.0,486557.0,216948.0,797194.0,605811.0,68889.0,425704.0,1041666.0,423040.0,3572.0,995634.0,453251.0,648140.0,571132.0,286314.0,189332.0,643449.0,736074.0,818790.0,505971.0,743930.0,942366.0,612775.0,350018.0,852255.0,370257.0,322599.0,701758.0,1008740.0,830561.0,418851.0,281440.0,737904.0,784340.0,461582.0,206625.0,992867.0,765206.0,859130.0,660234.0,447168.0,841313.0,325545.0,262863.0,189122.0,717568.0,15990.0,1097513.0,667956.0,387921.0,983780.0,110963.0,714150.0,317170.0,635369.0,544957.0,281166.0,57298.0,558286.0,6.711e5,940888.0,827820.0,379082.0,265121.0,376224.0,99731.0,76616.0,482985.0,289665.0,83929.0,280649.0,889581.0,659902.0,232131.0,704783.0,971898.0,516259.0,667029.0,567149.0,749652.0,577884.0,853197.0,52248.0,307491.0,543652.0,228123.0,950184.0,657853.0,407479.0,642177.0,573925.0,683356.0,274339.0,816278.0,53546.0,231548.0,882138.0,638556.0,562356.0,927893.0,550290.0,660279.0,27598.0,896645.0,1044925.0,937604.0,517875.0,224688.0,14765.0,196788.0,950935.0,578056.0,809190.0,605702.0,709376.0,24618.0,64099.0,893026.0,693773.0,382373.0,1035177.0,425976.0,231133.0,683071.0,702245.0,133885.0,864399.0,944209.0,858662.0,970426.0,229328.0,1008695.0,618442.0,696758.0,647904.0,257606.0,264616.0,267238.0,285612.0,71785.0,895451.0,674534.0,355731.0,139362.0,491763.0,788131.0,810450.0,89723.0,256532.0,719042.0,566665.0,962252.0,335609.0,269307.0,210510.0,430778.0,788393.0,645704.0,190099.0,1035222.0,638975.0,702444.0,401795.0,772286.0,583598.0,734736.0,196323.0,967643.0,479063.0,915427.0,717828.0,361301.0,122450.0,234847.0,744592.0,389318.0,120291.0,587726.0,735990.0,251563.0,632879.0,908654.0,1004425.0,706340.0,870493.0,1003211.0,463892.0,876185.0,649603.0,760647.0,275447.0,702794.0,848223.0,1027128.0,145153.0,817203.0,447449.0,390926.0,975973.0,258893.0,261615.0,619829.0,705385.0,751310.0,334217.0,646272.0,177824.0,705456.0]},"memory_usage_data":{"statistics":{"absolute_difference":null,"average":null,"ips":null,"maximum":null,"median":null,"minimum":null,"mode":null,"percentiles":null,"relative_less":null,"relative_more":null,"sample_size":0,"std_dev":null,"std_dev_ips":null,"std_dev_ratio":null},"samples":[]},"tag":null};
+
+      var inputHeadline = " (0000262144 elements)"
+
+      
+        drawRunTimeHistogram(scenario, inputHeadline);
+        drawRawRunTimeChart(scenario, inputHeadline);
+      
+
+      
+    </script>
+  </body>
+</html>

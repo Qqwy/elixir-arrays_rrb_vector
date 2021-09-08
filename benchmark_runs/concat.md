@@ -69,38 +69,38 @@ Run Time
 
   <tr>
     <td style="white-space: nowrap">Kernel.++/2 (list)</td>
-    <td style="white-space: nowrap; text-align: right">4266.77 K</td>
-    <td style="white-space: nowrap; text-align: right">0.23 μs</td>
-    <td style="white-space: nowrap; text-align: right">±664.56%</td>
-    <td style="white-space: nowrap; text-align: right">0.108 μs</td>
-    <td style="white-space: nowrap; text-align: right">0.65 μs</td>
+    <td style="white-space: nowrap; text-align: right">3336.80 K</td>
+    <td style="white-space: nowrap; text-align: right">0.30 μs</td>
+    <td style="white-space: nowrap; text-align: right">±723.61%</td>
+    <td style="white-space: nowrap; text-align: right">0.110 μs</td>
+    <td style="white-space: nowrap; text-align: right">2.20 μs</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (ErlangArray)</td>
-    <td style="white-space: nowrap; text-align: right">97.01 K</td>
-    <td style="white-space: nowrap; text-align: right">10.31 μs</td>
-    <td style="white-space: nowrap; text-align: right">±87.99%</td>
-    <td style="white-space: nowrap; text-align: right">7.06 μs</td>
-    <td style="white-space: nowrap; text-align: right">35.01 μs</td>
+    <td style="white-space: nowrap; text-align: right">95.15 K</td>
+    <td style="white-space: nowrap; text-align: right">10.51 μs</td>
+    <td style="white-space: nowrap; text-align: right">±88.13%</td>
+    <td style="white-space: nowrap; text-align: right">7.15 μs</td>
+    <td style="white-space: nowrap; text-align: right">38.56 μs</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (MapArray)</td>
-    <td style="white-space: nowrap; text-align: right">66.73 K</td>
-    <td style="white-space: nowrap; text-align: right">14.99 μs</td>
-    <td style="white-space: nowrap; text-align: right">±67.46%</td>
-    <td style="white-space: nowrap; text-align: right">10.71 μs</td>
-    <td style="white-space: nowrap; text-align: right">50.80 μs</td>
+    <td style="white-space: nowrap; text-align: right">64.84 K</td>
+    <td style="white-space: nowrap; text-align: right">15.42 μs</td>
+    <td style="white-space: nowrap; text-align: right">±67.64%</td>
+    <td style="white-space: nowrap; text-align: right">11.08 μs</td>
+    <td style="white-space: nowrap; text-align: right">52.90 μs</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (RRBVector)</td>
-    <td style="white-space: nowrap; text-align: right">3.47 K</td>
-    <td style="white-space: nowrap; text-align: right">287.86 μs</td>
-    <td style="white-space: nowrap; text-align: right">±25.74%</td>
-    <td style="white-space: nowrap; text-align: right">260.49 μs</td>
-    <td style="white-space: nowrap; text-align: right">624.52 μs</td>
+    <td style="white-space: nowrap; text-align: right">20.94 K</td>
+    <td style="white-space: nowrap; text-align: right">47.75 μs</td>
+    <td style="white-space: nowrap; text-align: right">±78.18%</td>
+    <td style="white-space: nowrap; text-align: right">37.15 μs</td>
+    <td style="white-space: nowrap; text-align: right">131.65 μs</td>
   </tr>
 
 </table>
@@ -115,26 +115,26 @@ Comparison
     <th style="text-align: right">Slower</th>
   <tr>
     <td style="white-space: nowrap">Kernel.++/2 (list)</td>
-    <td style="white-space: nowrap;text-align: right">4266.77 K</td>
+    <td style="white-space: nowrap;text-align: right">3336.80 K</td>
     <td>&nbsp;</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (ErlangArray)</td>
-    <td style="white-space: nowrap; text-align: right">97.01 K</td>
-    <td style="white-space: nowrap; text-align: right">43.98x</td>
+    <td style="white-space: nowrap; text-align: right">95.15 K</td>
+    <td style="white-space: nowrap; text-align: right">35.07x</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (MapArray)</td>
-    <td style="white-space: nowrap; text-align: right">66.73 K</td>
-    <td style="white-space: nowrap; text-align: right">63.94x</td>
+    <td style="white-space: nowrap; text-align: right">64.84 K</td>
+    <td style="white-space: nowrap; text-align: right">51.46x</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (RRBVector)</td>
-    <td style="white-space: nowrap; text-align: right">3.47 K</td>
-    <td style="white-space: nowrap; text-align: right">1228.24x</td>
+    <td style="white-space: nowrap; text-align: right">20.94 K</td>
+    <td style="white-space: nowrap; text-align: right">159.33x</td>
   </tr>
 
 </table>
@@ -195,38 +195,38 @@ Run Time
 
   <tr>
     <td style="white-space: nowrap">Kernel.++/2 (list)</td>
-    <td style="white-space: nowrap; text-align: right">1850.24 K</td>
-    <td style="white-space: nowrap; text-align: right">0.54 μs</td>
-    <td style="white-space: nowrap; text-align: right">±520.19%</td>
-    <td style="white-space: nowrap; text-align: right">0.21 μs</td>
-    <td style="white-space: nowrap; text-align: right">17.25 μs</td>
+    <td style="white-space: nowrap; text-align: right">2289.91 K</td>
+    <td style="white-space: nowrap; text-align: right">0.44 μs</td>
+    <td style="white-space: nowrap; text-align: right">±530.16%</td>
+    <td style="white-space: nowrap; text-align: right">0.191 μs</td>
+    <td style="white-space: nowrap; text-align: right">10.91 μs</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (ErlangArray)</td>
-    <td style="white-space: nowrap; text-align: right">49.70 K</td>
-    <td style="white-space: nowrap; text-align: right">20.12 μs</td>
-    <td style="white-space: nowrap; text-align: right">±40.55%</td>
-    <td style="white-space: nowrap; text-align: right">17.41 μs</td>
-    <td style="white-space: nowrap; text-align: right">53.65 μs</td>
+    <td style="white-space: nowrap; text-align: right">49.49 K</td>
+    <td style="white-space: nowrap; text-align: right">20.21 μs</td>
+    <td style="white-space: nowrap; text-align: right">±43.72%</td>
+    <td style="white-space: nowrap; text-align: right">17.23 μs</td>
+    <td style="white-space: nowrap; text-align: right">58.32 μs</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (MapArray)</td>
-    <td style="white-space: nowrap; text-align: right">46.47 K</td>
-    <td style="white-space: nowrap; text-align: right">21.52 μs</td>
-    <td style="white-space: nowrap; text-align: right">±42.21%</td>
-    <td style="white-space: nowrap; text-align: right">19.51 μs</td>
-    <td style="white-space: nowrap; text-align: right">60.10 μs</td>
+    <td style="white-space: nowrap; text-align: right">45.10 K</td>
+    <td style="white-space: nowrap; text-align: right">22.17 μs</td>
+    <td style="white-space: nowrap; text-align: right">±38.36%</td>
+    <td style="white-space: nowrap; text-align: right">20.07 μs</td>
+    <td style="white-space: nowrap; text-align: right">58.22 μs</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (RRBVector)</td>
-    <td style="white-space: nowrap; text-align: right">1.88 K</td>
-    <td style="white-space: nowrap; text-align: right">530.67 μs</td>
-    <td style="white-space: nowrap; text-align: right">±45.95%</td>
-    <td style="white-space: nowrap; text-align: right">500.32 μs</td>
-    <td style="white-space: nowrap; text-align: right">934.51 μs</td>
+    <td style="white-space: nowrap; text-align: right">9.84 K</td>
+    <td style="white-space: nowrap; text-align: right">101.60 μs</td>
+    <td style="white-space: nowrap; text-align: right">±84.54%</td>
+    <td style="white-space: nowrap; text-align: right">86.21 μs</td>
+    <td style="white-space: nowrap; text-align: right">254.50 μs</td>
   </tr>
 
 </table>
@@ -241,26 +241,26 @@ Comparison
     <th style="text-align: right">Slower</th>
   <tr>
     <td style="white-space: nowrap">Kernel.++/2 (list)</td>
-    <td style="white-space: nowrap;text-align: right">1850.24 K</td>
+    <td style="white-space: nowrap;text-align: right">2289.91 K</td>
     <td>&nbsp;</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (ErlangArray)</td>
-    <td style="white-space: nowrap; text-align: right">49.70 K</td>
-    <td style="white-space: nowrap; text-align: right">37.23x</td>
+    <td style="white-space: nowrap; text-align: right">49.49 K</td>
+    <td style="white-space: nowrap; text-align: right">46.27x</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (MapArray)</td>
-    <td style="white-space: nowrap; text-align: right">46.47 K</td>
-    <td style="white-space: nowrap; text-align: right">39.81x</td>
+    <td style="white-space: nowrap; text-align: right">45.10 K</td>
+    <td style="white-space: nowrap; text-align: right">50.77x</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (RRBVector)</td>
-    <td style="white-space: nowrap; text-align: right">1.88 K</td>
-    <td style="white-space: nowrap; text-align: right">981.87x</td>
+    <td style="white-space: nowrap; text-align: right">9.84 K</td>
+    <td style="white-space: nowrap; text-align: right">232.65x</td>
   </tr>
 
 </table>
@@ -321,38 +321,38 @@ Run Time
 
   <tr>
     <td style="white-space: nowrap">Kernel.++/2 (list)</td>
-    <td style="white-space: nowrap; text-align: right">993.93 K</td>
-    <td style="white-space: nowrap; text-align: right">1.01 μs</td>
-    <td style="white-space: nowrap; text-align: right">±364.09%</td>
-    <td style="white-space: nowrap; text-align: right">0.38 μs</td>
-    <td style="white-space: nowrap; text-align: right">24.20 μs</td>
+    <td style="white-space: nowrap; text-align: right">865.84 K</td>
+    <td style="white-space: nowrap; text-align: right">1.15 μs</td>
+    <td style="white-space: nowrap; text-align: right">±360.66%</td>
+    <td style="white-space: nowrap; text-align: right">0.41 μs</td>
+    <td style="white-space: nowrap; text-align: right">27.01 μs</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (ErlangArray)</td>
-    <td style="white-space: nowrap; text-align: right">23.19 K</td>
-    <td style="white-space: nowrap; text-align: right">43.12 μs</td>
-    <td style="white-space: nowrap; text-align: right">±28.74%</td>
-    <td style="white-space: nowrap; text-align: right">39.85 μs</td>
-    <td style="white-space: nowrap; text-align: right">109.73 μs</td>
+    <td style="white-space: nowrap; text-align: right">22.84 K</td>
+    <td style="white-space: nowrap; text-align: right">43.78 μs</td>
+    <td style="white-space: nowrap; text-align: right">±25.84%</td>
+    <td style="white-space: nowrap; text-align: right">41.08 μs</td>
+    <td style="white-space: nowrap; text-align: right">98.16 μs</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (MapArray)</td>
-    <td style="white-space: nowrap; text-align: right">21.87 K</td>
-    <td style="white-space: nowrap; text-align: right">45.73 μs</td>
-    <td style="white-space: nowrap; text-align: right">±29.19%</td>
-    <td style="white-space: nowrap; text-align: right">43.25 μs</td>
-    <td style="white-space: nowrap; text-align: right">113.05 μs</td>
+    <td style="white-space: nowrap; text-align: right">20.65 K</td>
+    <td style="white-space: nowrap; text-align: right">48.42 μs</td>
+    <td style="white-space: nowrap; text-align: right">±30.11%</td>
+    <td style="white-space: nowrap; text-align: right">46.04 μs</td>
+    <td style="white-space: nowrap; text-align: right">120.36 μs</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (RRBVector)</td>
-    <td style="white-space: nowrap; text-align: right">0.92 K</td>
-    <td style="white-space: nowrap; text-align: right">1088.24 μs</td>
-    <td style="white-space: nowrap; text-align: right">±14.55%</td>
-    <td style="white-space: nowrap; text-align: right">1042.58 μs</td>
-    <td style="white-space: nowrap; text-align: right">1599.48 μs</td>
+    <td style="white-space: nowrap; text-align: right">4.73 K</td>
+    <td style="white-space: nowrap; text-align: right">211.61 μs</td>
+    <td style="white-space: nowrap; text-align: right">±28.53%</td>
+    <td style="white-space: nowrap; text-align: right">207.80 μs</td>
+    <td style="white-space: nowrap; text-align: right">431.48 μs</td>
   </tr>
 
 </table>
@@ -367,26 +367,26 @@ Comparison
     <th style="text-align: right">Slower</th>
   <tr>
     <td style="white-space: nowrap">Kernel.++/2 (list)</td>
-    <td style="white-space: nowrap;text-align: right">993.93 K</td>
+    <td style="white-space: nowrap;text-align: right">865.84 K</td>
     <td>&nbsp;</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (ErlangArray)</td>
-    <td style="white-space: nowrap; text-align: right">23.19 K</td>
-    <td style="white-space: nowrap; text-align: right">42.86x</td>
+    <td style="white-space: nowrap; text-align: right">22.84 K</td>
+    <td style="white-space: nowrap; text-align: right">37.91x</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (MapArray)</td>
-    <td style="white-space: nowrap; text-align: right">21.87 K</td>
-    <td style="white-space: nowrap; text-align: right">45.45x</td>
+    <td style="white-space: nowrap; text-align: right">20.65 K</td>
+    <td style="white-space: nowrap; text-align: right">41.93x</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (RRBVector)</td>
-    <td style="white-space: nowrap; text-align: right">0.92 K</td>
-    <td style="white-space: nowrap; text-align: right">1081.64x</td>
+    <td style="white-space: nowrap; text-align: right">4.73 K</td>
+    <td style="white-space: nowrap; text-align: right">183.22x</td>
   </tr>
 
 </table>
@@ -447,38 +447,38 @@ Run Time
 
   <tr>
     <td style="white-space: nowrap">Kernel.++/2 (list)</td>
-    <td style="white-space: nowrap; text-align: right">654.80 K</td>
-    <td style="white-space: nowrap; text-align: right">1.53 μs</td>
-    <td style="white-space: nowrap; text-align: right">±186.00%</td>
-    <td style="white-space: nowrap; text-align: right">0.71 μs</td>
-    <td style="white-space: nowrap; text-align: right">10.92 μs</td>
+    <td style="white-space: nowrap; text-align: right">620.06 K</td>
+    <td style="white-space: nowrap; text-align: right">1.61 μs</td>
+    <td style="white-space: nowrap; text-align: right">±176.12%</td>
+    <td style="white-space: nowrap; text-align: right">0.75 μs</td>
+    <td style="white-space: nowrap; text-align: right">10.36 μs</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (ErlangArray)</td>
-    <td style="white-space: nowrap; text-align: right">11.81 K</td>
-    <td style="white-space: nowrap; text-align: right">84.68 μs</td>
-    <td style="white-space: nowrap; text-align: right">±25.93%</td>
-    <td style="white-space: nowrap; text-align: right">78.85 μs</td>
-    <td style="white-space: nowrap; text-align: right">189.24 μs</td>
+    <td style="white-space: nowrap; text-align: right">11.50 K</td>
+    <td style="white-space: nowrap; text-align: right">86.97 μs</td>
+    <td style="white-space: nowrap; text-align: right">±25.12%</td>
+    <td style="white-space: nowrap; text-align: right">79.87 μs</td>
+    <td style="white-space: nowrap; text-align: right">177.64 μs</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (MapArray)</td>
-    <td style="white-space: nowrap; text-align: right">9.20 K</td>
-    <td style="white-space: nowrap; text-align: right">108.71 μs</td>
-    <td style="white-space: nowrap; text-align: right">±24.17%</td>
-    <td style="white-space: nowrap; text-align: right">101.58 μs</td>
-    <td style="white-space: nowrap; text-align: right">231.16 μs</td>
+    <td style="white-space: nowrap; text-align: right">8.76 K</td>
+    <td style="white-space: nowrap; text-align: right">114.15 μs</td>
+    <td style="white-space: nowrap; text-align: right">±24.56%</td>
+    <td style="white-space: nowrap; text-align: right">107.98 μs</td>
+    <td style="white-space: nowrap; text-align: right">267.43 μs</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (RRBVector)</td>
-    <td style="white-space: nowrap; text-align: right">0.44 K</td>
-    <td style="white-space: nowrap; text-align: right">2253.85 μs</td>
-    <td style="white-space: nowrap; text-align: right">±9.19%</td>
-    <td style="white-space: nowrap; text-align: right">2182.95 μs</td>
-    <td style="white-space: nowrap; text-align: right">2926.43 μs</td>
+    <td style="white-space: nowrap; text-align: right">2.16 K</td>
+    <td style="white-space: nowrap; text-align: right">463.61 μs</td>
+    <td style="white-space: nowrap; text-align: right">±21.00%</td>
+    <td style="white-space: nowrap; text-align: right">445.63 μs</td>
+    <td style="white-space: nowrap; text-align: right">901.05 μs</td>
   </tr>
 
 </table>
@@ -493,26 +493,26 @@ Comparison
     <th style="text-align: right">Slower</th>
   <tr>
     <td style="white-space: nowrap">Kernel.++/2 (list)</td>
-    <td style="white-space: nowrap;text-align: right">654.80 K</td>
+    <td style="white-space: nowrap;text-align: right">620.06 K</td>
     <td>&nbsp;</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (ErlangArray)</td>
-    <td style="white-space: nowrap; text-align: right">11.81 K</td>
-    <td style="white-space: nowrap; text-align: right">55.45x</td>
+    <td style="white-space: nowrap; text-align: right">11.50 K</td>
+    <td style="white-space: nowrap; text-align: right">53.93x</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (MapArray)</td>
-    <td style="white-space: nowrap; text-align: right">9.20 K</td>
-    <td style="white-space: nowrap; text-align: right">71.18x</td>
+    <td style="white-space: nowrap; text-align: right">8.76 K</td>
+    <td style="white-space: nowrap; text-align: right">70.78x</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (RRBVector)</td>
-    <td style="white-space: nowrap; text-align: right">0.44 K</td>
-    <td style="white-space: nowrap; text-align: right">1475.83x</td>
+    <td style="white-space: nowrap; text-align: right">2.16 K</td>
+    <td style="white-space: nowrap; text-align: right">287.47x</td>
   </tr>
 
 </table>
@@ -573,38 +573,38 @@ Run Time
 
   <tr>
     <td style="white-space: nowrap">Kernel.++/2 (list)</td>
-    <td style="white-space: nowrap; text-align: right">274.74 K</td>
-    <td style="white-space: nowrap; text-align: right">3.64 μs</td>
-    <td style="white-space: nowrap; text-align: right">±116.94%</td>
-    <td style="white-space: nowrap; text-align: right">1.51 μs</td>
-    <td style="white-space: nowrap; text-align: right">20.94 μs</td>
+    <td style="white-space: nowrap; text-align: right">270.48 K</td>
+    <td style="white-space: nowrap; text-align: right">3.70 μs</td>
+    <td style="white-space: nowrap; text-align: right">±108.92%</td>
+    <td style="white-space: nowrap; text-align: right">1.57 μs</td>
+    <td style="white-space: nowrap; text-align: right">21.23 μs</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (ErlangArray)</td>
-    <td style="white-space: nowrap; text-align: right">5.81 K</td>
-    <td style="white-space: nowrap; text-align: right">172.15 μs</td>
-    <td style="white-space: nowrap; text-align: right">±25.33%</td>
-    <td style="white-space: nowrap; text-align: right">161.14 μs</td>
-    <td style="white-space: nowrap; text-align: right">401.89 μs</td>
+    <td style="white-space: nowrap; text-align: right">5.77 K</td>
+    <td style="white-space: nowrap; text-align: right">173.31 μs</td>
+    <td style="white-space: nowrap; text-align: right">±21.78%</td>
+    <td style="white-space: nowrap; text-align: right">163.35 μs</td>
+    <td style="white-space: nowrap; text-align: right">387.50 μs</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (MapArray)</td>
-    <td style="white-space: nowrap; text-align: right">3.87 K</td>
-    <td style="white-space: nowrap; text-align: right">258.62 μs</td>
-    <td style="white-space: nowrap; text-align: right">±20.43%</td>
-    <td style="white-space: nowrap; text-align: right">246.53 μs</td>
-    <td style="white-space: nowrap; text-align: right">496.79 μs</td>
+    <td style="white-space: nowrap; text-align: right">3.81 K</td>
+    <td style="white-space: nowrap; text-align: right">262.80 μs</td>
+    <td style="white-space: nowrap; text-align: right">±18.41%</td>
+    <td style="white-space: nowrap; text-align: right">252.37 μs</td>
+    <td style="white-space: nowrap; text-align: right">459.28 μs</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (RRBVector)</td>
-    <td style="white-space: nowrap; text-align: right">0.22 K</td>
-    <td style="white-space: nowrap; text-align: right">4477.89 μs</td>
-    <td style="white-space: nowrap; text-align: right">±5.07%</td>
-    <td style="white-space: nowrap; text-align: right">4502.06 μs</td>
-    <td style="white-space: nowrap; text-align: right">4928.90 μs</td>
+    <td style="white-space: nowrap; text-align: right">1.02 K</td>
+    <td style="white-space: nowrap; text-align: right">977.66 μs</td>
+    <td style="white-space: nowrap; text-align: right">±38.67%</td>
+    <td style="white-space: nowrap; text-align: right">925.15 μs</td>
+    <td style="white-space: nowrap; text-align: right">1390.57 μs</td>
   </tr>
 
 </table>
@@ -619,26 +619,26 @@ Comparison
     <th style="text-align: right">Slower</th>
   <tr>
     <td style="white-space: nowrap">Kernel.++/2 (list)</td>
-    <td style="white-space: nowrap;text-align: right">274.74 K</td>
+    <td style="white-space: nowrap;text-align: right">270.48 K</td>
     <td>&nbsp;</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (ErlangArray)</td>
-    <td style="white-space: nowrap; text-align: right">5.81 K</td>
-    <td style="white-space: nowrap; text-align: right">47.3x</td>
+    <td style="white-space: nowrap; text-align: right">5.77 K</td>
+    <td style="white-space: nowrap; text-align: right">46.88x</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (MapArray)</td>
-    <td style="white-space: nowrap; text-align: right">3.87 K</td>
-    <td style="white-space: nowrap; text-align: right">71.05x</td>
+    <td style="white-space: nowrap; text-align: right">3.81 K</td>
+    <td style="white-space: nowrap; text-align: right">71.08x</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (RRBVector)</td>
-    <td style="white-space: nowrap; text-align: right">0.22 K</td>
-    <td style="white-space: nowrap; text-align: right">1230.25x</td>
+    <td style="white-space: nowrap; text-align: right">1.02 K</td>
+    <td style="white-space: nowrap; text-align: right">264.44x</td>
   </tr>
 
 </table>
@@ -699,38 +699,38 @@ Run Time
 
   <tr>
     <td style="white-space: nowrap">Kernel.++/2 (list)</td>
-    <td style="white-space: nowrap; text-align: right">132.71 K</td>
-    <td style="white-space: nowrap; text-align: right">7.53 μs</td>
-    <td style="white-space: nowrap; text-align: right">±92.30%</td>
-    <td style="white-space: nowrap; text-align: right">3.14 μs</td>
-    <td style="white-space: nowrap; text-align: right">32.55 μs</td>
+    <td style="white-space: nowrap; text-align: right">126.95 K</td>
+    <td style="white-space: nowrap; text-align: right">7.88 μs</td>
+    <td style="white-space: nowrap; text-align: right">±87.96%</td>
+    <td style="white-space: nowrap; text-align: right">3.32 μs</td>
+    <td style="white-space: nowrap; text-align: right">32.75 μs</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (ErlangArray)</td>
-    <td style="white-space: nowrap; text-align: right">2.54 K</td>
-    <td style="white-space: nowrap; text-align: right">393.95 μs</td>
-    <td style="white-space: nowrap; text-align: right">±18.07%</td>
-    <td style="white-space: nowrap; text-align: right">376.86 μs</td>
-    <td style="white-space: nowrap; text-align: right">802.55 μs</td>
+    <td style="white-space: nowrap; text-align: right">2.49 K</td>
+    <td style="white-space: nowrap; text-align: right">400.86 μs</td>
+    <td style="white-space: nowrap; text-align: right">±16.28%</td>
+    <td style="white-space: nowrap; text-align: right">381.11 μs</td>
+    <td style="white-space: nowrap; text-align: right">689.04 μs</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (MapArray)</td>
-    <td style="white-space: nowrap; text-align: right">1.95 K</td>
-    <td style="white-space: nowrap; text-align: right">513.08 μs</td>
-    <td style="white-space: nowrap; text-align: right">±15.64%</td>
-    <td style="white-space: nowrap; text-align: right">494.91 μs</td>
-    <td style="white-space: nowrap; text-align: right">849.16 μs</td>
+    <td style="white-space: nowrap; text-align: right">1.91 K</td>
+    <td style="white-space: nowrap; text-align: right">523.49 μs</td>
+    <td style="white-space: nowrap; text-align: right">±17.07%</td>
+    <td style="white-space: nowrap; text-align: right">499.18 μs</td>
+    <td style="white-space: nowrap; text-align: right">882.79 μs</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (RRBVector)</td>
-    <td style="white-space: nowrap; text-align: right">0.109 K</td>
-    <td style="white-space: nowrap; text-align: right">9154.33 μs</td>
-    <td style="white-space: nowrap; text-align: right">±8.56%</td>
-    <td style="white-space: nowrap; text-align: right">8978.77 μs</td>
-    <td style="white-space: nowrap; text-align: right">12596.27 μs</td>
+    <td style="white-space: nowrap; text-align: right">0.52 K</td>
+    <td style="white-space: nowrap; text-align: right">1920.15 μs</td>
+    <td style="white-space: nowrap; text-align: right">±25.57%</td>
+    <td style="white-space: nowrap; text-align: right">1831.81 μs</td>
+    <td style="white-space: nowrap; text-align: right">6366.91 μs</td>
   </tr>
 
 </table>
@@ -745,26 +745,26 @@ Comparison
     <th style="text-align: right">Slower</th>
   <tr>
     <td style="white-space: nowrap">Kernel.++/2 (list)</td>
-    <td style="white-space: nowrap;text-align: right">132.71 K</td>
+    <td style="white-space: nowrap;text-align: right">126.95 K</td>
     <td>&nbsp;</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (ErlangArray)</td>
-    <td style="white-space: nowrap; text-align: right">2.54 K</td>
-    <td style="white-space: nowrap; text-align: right">52.28x</td>
+    <td style="white-space: nowrap; text-align: right">2.49 K</td>
+    <td style="white-space: nowrap; text-align: right">50.89x</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (MapArray)</td>
-    <td style="white-space: nowrap; text-align: right">1.95 K</td>
-    <td style="white-space: nowrap; text-align: right">68.09x</td>
+    <td style="white-space: nowrap; text-align: right">1.91 K</td>
+    <td style="white-space: nowrap; text-align: right">66.45x</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (RRBVector)</td>
-    <td style="white-space: nowrap; text-align: right">0.109 K</td>
-    <td style="white-space: nowrap; text-align: right">1214.91x</td>
+    <td style="white-space: nowrap; text-align: right">0.52 K</td>
+    <td style="white-space: nowrap; text-align: right">243.76x</td>
   </tr>
 
 </table>
@@ -825,38 +825,38 @@ Run Time
 
   <tr>
     <td style="white-space: nowrap">Kernel.++/2 (list)</td>
-    <td style="white-space: nowrap; text-align: right">55.03 K</td>
-    <td style="white-space: nowrap; text-align: right">0.0182 ms</td>
-    <td style="white-space: nowrap; text-align: right">±67.32%</td>
-    <td style="white-space: nowrap; text-align: right">0.0228 ms</td>
-    <td style="white-space: nowrap; text-align: right">0.0551 ms</td>
+    <td style="white-space: nowrap; text-align: right">57.72 K</td>
+    <td style="white-space: nowrap; text-align: right">0.0173 ms</td>
+    <td style="white-space: nowrap; text-align: right">±79.89%</td>
+    <td style="white-space: nowrap; text-align: right">0.00703 ms</td>
+    <td style="white-space: nowrap; text-align: right">0.0696 ms</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (ErlangArray)</td>
-    <td style="white-space: nowrap; text-align: right">1.28 K</td>
+    <td style="white-space: nowrap; text-align: right">1.23 K</td>
+    <td style="white-space: nowrap; text-align: right">0.82 ms</td>
+    <td style="white-space: nowrap; text-align: right">±13.94%</td>
     <td style="white-space: nowrap; text-align: right">0.78 ms</td>
-    <td style="white-space: nowrap; text-align: right">±14.10%</td>
-    <td style="white-space: nowrap; text-align: right">0.75 ms</td>
-    <td style="white-space: nowrap; text-align: right">1.32 ms</td>
+    <td style="white-space: nowrap; text-align: right">1.28 ms</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (MapArray)</td>
-    <td style="white-space: nowrap; text-align: right">0.92 K</td>
+    <td style="white-space: nowrap; text-align: right">0.93 K</td>
     <td style="white-space: nowrap; text-align: right">1.08 ms</td>
-    <td style="white-space: nowrap; text-align: right">±14.61%</td>
-    <td style="white-space: nowrap; text-align: right">1.06 ms</td>
-    <td style="white-space: nowrap; text-align: right">1.58 ms</td>
+    <td style="white-space: nowrap; text-align: right">±13.85%</td>
+    <td style="white-space: nowrap; text-align: right">1.02 ms</td>
+    <td style="white-space: nowrap; text-align: right">1.62 ms</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (RRBVector)</td>
-    <td style="white-space: nowrap; text-align: right">0.0547 K</td>
-    <td style="white-space: nowrap; text-align: right">18.27 ms</td>
-    <td style="white-space: nowrap; text-align: right">±1.83%</td>
-    <td style="white-space: nowrap; text-align: right">18.26 ms</td>
-    <td style="white-space: nowrap; text-align: right">18.71 ms</td>
+    <td style="white-space: nowrap; text-align: right">0.27 K</td>
+    <td style="white-space: nowrap; text-align: right">3.68 ms</td>
+    <td style="white-space: nowrap; text-align: right">±5.79%</td>
+    <td style="white-space: nowrap; text-align: right">3.65 ms</td>
+    <td style="white-space: nowrap; text-align: right">4.29 ms</td>
   </tr>
 
 </table>
@@ -871,26 +871,26 @@ Comparison
     <th style="text-align: right">Slower</th>
   <tr>
     <td style="white-space: nowrap">Kernel.++/2 (list)</td>
-    <td style="white-space: nowrap;text-align: right">55.03 K</td>
+    <td style="white-space: nowrap;text-align: right">57.72 K</td>
     <td>&nbsp;</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (ErlangArray)</td>
-    <td style="white-space: nowrap; text-align: right">1.28 K</td>
-    <td style="white-space: nowrap; text-align: right">43.05x</td>
+    <td style="white-space: nowrap; text-align: right">1.23 K</td>
+    <td style="white-space: nowrap; text-align: right">47.04x</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (MapArray)</td>
-    <td style="white-space: nowrap; text-align: right">0.92 K</td>
-    <td style="white-space: nowrap; text-align: right">59.64x</td>
+    <td style="white-space: nowrap; text-align: right">0.93 K</td>
+    <td style="white-space: nowrap; text-align: right">62.21x</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (RRBVector)</td>
-    <td style="white-space: nowrap; text-align: right">0.0547 K</td>
-    <td style="white-space: nowrap; text-align: right">1005.43x</td>
+    <td style="white-space: nowrap; text-align: right">0.27 K</td>
+    <td style="white-space: nowrap; text-align: right">212.31x</td>
   </tr>
 
 </table>
@@ -951,38 +951,38 @@ Run Time
 
   <tr>
     <td style="white-space: nowrap">Kernel.++/2 (list)</td>
-    <td style="white-space: nowrap; text-align: right">30568.67</td>
-    <td style="white-space: nowrap; text-align: right">0.0327 ms</td>
-    <td style="white-space: nowrap; text-align: right">±79.21%</td>
+    <td style="white-space: nowrap; text-align: right">30641.46</td>
+    <td style="white-space: nowrap; text-align: right">0.0326 ms</td>
+    <td style="white-space: nowrap; text-align: right">±73.80%</td>
     <td style="white-space: nowrap; text-align: right">0.0134 ms</td>
-    <td style="white-space: nowrap; text-align: right">0.116 ms</td>
+    <td style="white-space: nowrap; text-align: right">0.0919 ms</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (ErlangArray)</td>
-    <td style="white-space: nowrap; text-align: right">645.23</td>
-    <td style="white-space: nowrap; text-align: right">1.55 ms</td>
-    <td style="white-space: nowrap; text-align: right">±11.01%</td>
-    <td style="white-space: nowrap; text-align: right">1.48 ms</td>
-    <td style="white-space: nowrap; text-align: right">1.97 ms</td>
+    <td style="white-space: nowrap; text-align: right">666.51</td>
+    <td style="white-space: nowrap; text-align: right">1.50 ms</td>
+    <td style="white-space: nowrap; text-align: right">±10.30%</td>
+    <td style="white-space: nowrap; text-align: right">1.45 ms</td>
+    <td style="white-space: nowrap; text-align: right">2.07 ms</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (MapArray)</td>
-    <td style="white-space: nowrap; text-align: right">453.89</td>
-    <td style="white-space: nowrap; text-align: right">2.20 ms</td>
-    <td style="white-space: nowrap; text-align: right">±9.25%</td>
-    <td style="white-space: nowrap; text-align: right">2.14 ms</td>
-    <td style="white-space: nowrap; text-align: right">2.91 ms</td>
+    <td style="white-space: nowrap; text-align: right">451.46</td>
+    <td style="white-space: nowrap; text-align: right">2.22 ms</td>
+    <td style="white-space: nowrap; text-align: right">±9.58%</td>
+    <td style="white-space: nowrap; text-align: right">2.19 ms</td>
+    <td style="white-space: nowrap; text-align: right">3.16 ms</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (RRBVector)</td>
-    <td style="white-space: nowrap; text-align: right">28.00</td>
-    <td style="white-space: nowrap; text-align: right">35.72 ms</td>
-    <td style="white-space: nowrap; text-align: right">±3.09%</td>
-    <td style="white-space: nowrap; text-align: right">35.21 ms</td>
-    <td style="white-space: nowrap; text-align: right">37.64 ms</td>
+    <td style="white-space: nowrap; text-align: right">127.90</td>
+    <td style="white-space: nowrap; text-align: right">7.82 ms</td>
+    <td style="white-space: nowrap; text-align: right">±4.21%</td>
+    <td style="white-space: nowrap; text-align: right">7.74 ms</td>
+    <td style="white-space: nowrap; text-align: right">8.62 ms</td>
   </tr>
 
 </table>
@@ -997,26 +997,26 @@ Comparison
     <th style="text-align: right">Slower</th>
   <tr>
     <td style="white-space: nowrap">Kernel.++/2 (list)</td>
-    <td style="white-space: nowrap;text-align: right">30568.67</td>
+    <td style="white-space: nowrap;text-align: right">30641.46</td>
     <td>&nbsp;</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (ErlangArray)</td>
-    <td style="white-space: nowrap; text-align: right">645.23</td>
-    <td style="white-space: nowrap; text-align: right">47.38x</td>
+    <td style="white-space: nowrap; text-align: right">666.51</td>
+    <td style="white-space: nowrap; text-align: right">45.97x</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (MapArray)</td>
-    <td style="white-space: nowrap; text-align: right">453.89</td>
-    <td style="white-space: nowrap; text-align: right">67.35x</td>
+    <td style="white-space: nowrap; text-align: right">451.46</td>
+    <td style="white-space: nowrap; text-align: right">67.87x</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (RRBVector)</td>
-    <td style="white-space: nowrap; text-align: right">28.00</td>
-    <td style="white-space: nowrap; text-align: right">1091.82x</td>
+    <td style="white-space: nowrap; text-align: right">127.90</td>
+    <td style="white-space: nowrap; text-align: right">239.57x</td>
   </tr>
 
 </table>
@@ -1077,38 +1077,38 @@ Run Time
 
   <tr>
     <td style="white-space: nowrap">Kernel.++/2 (list)</td>
-    <td style="white-space: nowrap; text-align: right">19115.10</td>
-    <td style="white-space: nowrap; text-align: right">0.0523 ms</td>
-    <td style="white-space: nowrap; text-align: right">±79.87%</td>
-    <td style="white-space: nowrap; text-align: right">0.0288 ms</td>
-    <td style="white-space: nowrap; text-align: right">0.184 ms</td>
+    <td style="white-space: nowrap; text-align: right">14300.20</td>
+    <td style="white-space: nowrap; text-align: right">0.0699 ms</td>
+    <td style="white-space: nowrap; text-align: right">±101.01%</td>
+    <td style="white-space: nowrap; text-align: right">0.0308 ms</td>
+    <td style="white-space: nowrap; text-align: right">0.37 ms</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (ErlangArray)</td>
-    <td style="white-space: nowrap; text-align: right">272.86</td>
-    <td style="white-space: nowrap; text-align: right">3.66 ms</td>
-    <td style="white-space: nowrap; text-align: right">±7.51%</td>
-    <td style="white-space: nowrap; text-align: right">3.66 ms</td>
-    <td style="white-space: nowrap; text-align: right">4.35 ms</td>
+    <td style="white-space: nowrap; text-align: right">277.79</td>
+    <td style="white-space: nowrap; text-align: right">3.60 ms</td>
+    <td style="white-space: nowrap; text-align: right">±8.07%</td>
+    <td style="white-space: nowrap; text-align: right">3.59 ms</td>
+    <td style="white-space: nowrap; text-align: right">4.42 ms</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (MapArray)</td>
-    <td style="white-space: nowrap; text-align: right">206.33</td>
-    <td style="white-space: nowrap; text-align: right">4.85 ms</td>
-    <td style="white-space: nowrap; text-align: right">±6.00%</td>
-    <td style="white-space: nowrap; text-align: right">4.78 ms</td>
-    <td style="white-space: nowrap; text-align: right">5.42 ms</td>
+    <td style="white-space: nowrap; text-align: right">204.31</td>
+    <td style="white-space: nowrap; text-align: right">4.89 ms</td>
+    <td style="white-space: nowrap; text-align: right">±5.98%</td>
+    <td style="white-space: nowrap; text-align: right">4.95 ms</td>
+    <td style="white-space: nowrap; text-align: right">5.46 ms</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (RRBVector)</td>
-    <td style="white-space: nowrap; text-align: right">12.89</td>
-    <td style="white-space: nowrap; text-align: right">77.58 ms</td>
-    <td style="white-space: nowrap; text-align: right">±2.45%</td>
-    <td style="white-space: nowrap; text-align: right">76.82 ms</td>
-    <td style="white-space: nowrap; text-align: right">79.74 ms</td>
+    <td style="white-space: nowrap; text-align: right">61.68</td>
+    <td style="white-space: nowrap; text-align: right">16.21 ms</td>
+    <td style="white-space: nowrap; text-align: right">±12.93%</td>
+    <td style="white-space: nowrap; text-align: right">15.53 ms</td>
+    <td style="white-space: nowrap; text-align: right">21.73 ms</td>
   </tr>
 
 </table>
@@ -1123,26 +1123,26 @@ Comparison
     <th style="text-align: right">Slower</th>
   <tr>
     <td style="white-space: nowrap">Kernel.++/2 (list)</td>
-    <td style="white-space: nowrap;text-align: right">19115.10</td>
+    <td style="white-space: nowrap;text-align: right">14300.20</td>
     <td>&nbsp;</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (ErlangArray)</td>
-    <td style="white-space: nowrap; text-align: right">272.86</td>
-    <td style="white-space: nowrap; text-align: right">70.05x</td>
+    <td style="white-space: nowrap; text-align: right">277.79</td>
+    <td style="white-space: nowrap; text-align: right">51.48x</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (MapArray)</td>
-    <td style="white-space: nowrap; text-align: right">206.33</td>
-    <td style="white-space: nowrap; text-align: right">92.64x</td>
+    <td style="white-space: nowrap; text-align: right">204.31</td>
+    <td style="white-space: nowrap; text-align: right">69.99x</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (RRBVector)</td>
-    <td style="white-space: nowrap; text-align: right">12.89</td>
-    <td style="white-space: nowrap; text-align: right">1482.87x</td>
+    <td style="white-space: nowrap; text-align: right">61.68</td>
+    <td style="white-space: nowrap; text-align: right">231.84x</td>
   </tr>
 
 </table>
@@ -1203,38 +1203,38 @@ Run Time
 
   <tr>
     <td style="white-space: nowrap">Kernel.++/2 (list)</td>
-    <td style="white-space: nowrap; text-align: right">9093.94</td>
-    <td style="white-space: nowrap; text-align: right">0.110 ms</td>
-    <td style="white-space: nowrap; text-align: right">±90.12%</td>
-    <td style="white-space: nowrap; text-align: right">0.0666 ms</td>
-    <td style="white-space: nowrap; text-align: right">0.35 ms</td>
+    <td style="white-space: nowrap; text-align: right">7102.15</td>
+    <td style="white-space: nowrap; text-align: right">0.141 ms</td>
+    <td style="white-space: nowrap; text-align: right">±86.67%</td>
+    <td style="white-space: nowrap; text-align: right">0.0714 ms</td>
+    <td style="white-space: nowrap; text-align: right">0.42 ms</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (ErlangArray)</td>
-    <td style="white-space: nowrap; text-align: right">140.79</td>
-    <td style="white-space: nowrap; text-align: right">7.10 ms</td>
-    <td style="white-space: nowrap; text-align: right">±4.06%</td>
-    <td style="white-space: nowrap; text-align: right">7.10 ms</td>
-    <td style="white-space: nowrap; text-align: right">7.58 ms</td>
+    <td style="white-space: nowrap; text-align: right">137.08</td>
+    <td style="white-space: nowrap; text-align: right">7.30 ms</td>
+    <td style="white-space: nowrap; text-align: right">±4.44%</td>
+    <td style="white-space: nowrap; text-align: right">7.38 ms</td>
+    <td style="white-space: nowrap; text-align: right">7.77 ms</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (MapArray)</td>
-    <td style="white-space: nowrap; text-align: right">97.01</td>
-    <td style="white-space: nowrap; text-align: right">10.31 ms</td>
-    <td style="white-space: nowrap; text-align: right">±5.33%</td>
-    <td style="white-space: nowrap; text-align: right">10.21 ms</td>
-    <td style="white-space: nowrap; text-align: right">11.88 ms</td>
+    <td style="white-space: nowrap; text-align: right">101.21</td>
+    <td style="white-space: nowrap; text-align: right">9.88 ms</td>
+    <td style="white-space: nowrap; text-align: right">±2.11%</td>
+    <td style="white-space: nowrap; text-align: right">9.85 ms</td>
+    <td style="white-space: nowrap; text-align: right">10.27 ms</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (RRBVector)</td>
-    <td style="white-space: nowrap; text-align: right">6.40</td>
-    <td style="white-space: nowrap; text-align: right">156.19 ms</td>
-    <td style="white-space: nowrap; text-align: right">±4.29%</td>
-    <td style="white-space: nowrap; text-align: right">156.19 ms</td>
-    <td style="white-space: nowrap; text-align: right">160.92 ms</td>
+    <td style="white-space: nowrap; text-align: right">28.45</td>
+    <td style="white-space: nowrap; text-align: right">35.15 ms</td>
+    <td style="white-space: nowrap; text-align: right">±1.97%</td>
+    <td style="white-space: nowrap; text-align: right">34.81 ms</td>
+    <td style="white-space: nowrap; text-align: right">36.38 ms</td>
   </tr>
 
 </table>
@@ -1249,26 +1249,26 @@ Comparison
     <th style="text-align: right">Slower</th>
   <tr>
     <td style="white-space: nowrap">Kernel.++/2 (list)</td>
-    <td style="white-space: nowrap;text-align: right">9093.94</td>
+    <td style="white-space: nowrap;text-align: right">7102.15</td>
     <td>&nbsp;</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (ErlangArray)</td>
-    <td style="white-space: nowrap; text-align: right">140.79</td>
-    <td style="white-space: nowrap; text-align: right">64.59x</td>
+    <td style="white-space: nowrap; text-align: right">137.08</td>
+    <td style="white-space: nowrap; text-align: right">51.81x</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (MapArray)</td>
-    <td style="white-space: nowrap; text-align: right">97.01</td>
-    <td style="white-space: nowrap; text-align: right">93.74x</td>
+    <td style="white-space: nowrap; text-align: right">101.21</td>
+    <td style="white-space: nowrap; text-align: right">70.17x</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (RRBVector)</td>
-    <td style="white-space: nowrap; text-align: right">6.40</td>
-    <td style="white-space: nowrap; text-align: right">1420.35x</td>
+    <td style="white-space: nowrap; text-align: right">28.45</td>
+    <td style="white-space: nowrap; text-align: right">249.66x</td>
   </tr>
 
 </table>
@@ -1329,38 +1329,38 @@ Run Time
 
   <tr>
     <td style="white-space: nowrap">Kernel.++/2 (list)</td>
-    <td style="white-space: nowrap; text-align: right">3628.91</td>
-    <td style="white-space: nowrap; text-align: right">0.28 ms</td>
-    <td style="white-space: nowrap; text-align: right">±81.36%</td>
-    <td style="white-space: nowrap; text-align: right">0.140 ms</td>
-    <td style="white-space: nowrap; text-align: right">0.67 ms</td>
+    <td style="white-space: nowrap; text-align: right">3037.68</td>
+    <td style="white-space: nowrap; text-align: right">0.33 ms</td>
+    <td style="white-space: nowrap; text-align: right">±62.98%</td>
+    <td style="white-space: nowrap; text-align: right">0.27 ms</td>
+    <td style="white-space: nowrap; text-align: right">0.66 ms</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (ErlangArray)</td>
-    <td style="white-space: nowrap; text-align: right">64.78</td>
-    <td style="white-space: nowrap; text-align: right">15.44 ms</td>
-    <td style="white-space: nowrap; text-align: right">±0.71%</td>
-    <td style="white-space: nowrap; text-align: right">15.42 ms</td>
-    <td style="white-space: nowrap; text-align: right">15.59 ms</td>
+    <td style="white-space: nowrap; text-align: right">64.05</td>
+    <td style="white-space: nowrap; text-align: right">15.61 ms</td>
+    <td style="white-space: nowrap; text-align: right">±2.26%</td>
+    <td style="white-space: nowrap; text-align: right">15.65 ms</td>
+    <td style="white-space: nowrap; text-align: right">16.23 ms</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (MapArray)</td>
-    <td style="white-space: nowrap; text-align: right">38.28</td>
-    <td style="white-space: nowrap; text-align: right">26.13 ms</td>
-    <td style="white-space: nowrap; text-align: right">±7.44%</td>
-    <td style="white-space: nowrap; text-align: right">25.44 ms</td>
-    <td style="white-space: nowrap; text-align: right">30.04 ms</td>
+    <td style="white-space: nowrap; text-align: right">38.50</td>
+    <td style="white-space: nowrap; text-align: right">25.97 ms</td>
+    <td style="white-space: nowrap; text-align: right">±5.61%</td>
+    <td style="white-space: nowrap; text-align: right">25.37 ms</td>
+    <td style="white-space: nowrap; text-align: right">28.94 ms</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (RRBVector)</td>
-    <td style="white-space: nowrap; text-align: right">3.21</td>
-    <td style="white-space: nowrap; text-align: right">311.81 ms</td>
-    <td style="white-space: nowrap; text-align: right">±0.00%</td>
-    <td style="white-space: nowrap; text-align: right">311.81 ms</td>
-    <td style="white-space: nowrap; text-align: right">311.81 ms</td>
+    <td style="white-space: nowrap; text-align: right">15.02</td>
+    <td style="white-space: nowrap; text-align: right">66.58 ms</td>
+    <td style="white-space: nowrap; text-align: right">±1.52%</td>
+    <td style="white-space: nowrap; text-align: right">67.12 ms</td>
+    <td style="white-space: nowrap; text-align: right">67.20 ms</td>
   </tr>
 
 </table>
@@ -1375,26 +1375,26 @@ Comparison
     <th style="text-align: right">Slower</th>
   <tr>
     <td style="white-space: nowrap">Kernel.++/2 (list)</td>
-    <td style="white-space: nowrap;text-align: right">3628.91</td>
+    <td style="white-space: nowrap;text-align: right">3037.68</td>
     <td>&nbsp;</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (ErlangArray)</td>
-    <td style="white-space: nowrap; text-align: right">64.78</td>
-    <td style="white-space: nowrap; text-align: right">56.01x</td>
+    <td style="white-space: nowrap; text-align: right">64.05</td>
+    <td style="white-space: nowrap; text-align: right">47.43x</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (MapArray)</td>
-    <td style="white-space: nowrap; text-align: right">38.28</td>
-    <td style="white-space: nowrap; text-align: right">94.81x</td>
+    <td style="white-space: nowrap; text-align: right">38.50</td>
+    <td style="white-space: nowrap; text-align: right">78.89x</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (RRBVector)</td>
-    <td style="white-space: nowrap; text-align: right">3.21</td>
-    <td style="white-space: nowrap; text-align: right">1131.51x</td>
+    <td style="white-space: nowrap; text-align: right">15.02</td>
+    <td style="white-space: nowrap; text-align: right">202.24x</td>
   </tr>
 
 </table>
@@ -1455,38 +1455,38 @@ Run Time
 
   <tr>
     <td style="white-space: nowrap">Kernel.++/2 (list)</td>
-    <td style="white-space: nowrap; text-align: right">774.24</td>
-    <td style="white-space: nowrap; text-align: right">1.29 ms</td>
-    <td style="white-space: nowrap; text-align: right">±53.73%</td>
+    <td style="white-space: nowrap; text-align: right">828.42</td>
+    <td style="white-space: nowrap; text-align: right">1.21 ms</td>
+    <td style="white-space: nowrap; text-align: right">±53.36%</td>
     <td style="white-space: nowrap; text-align: right">1.22 ms</td>
-    <td style="white-space: nowrap; text-align: right">2.16 ms</td>
+    <td style="white-space: nowrap; text-align: right">2.04 ms</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (ErlangArray)</td>
-    <td style="white-space: nowrap; text-align: right">30.58</td>
-    <td style="white-space: nowrap; text-align: right">32.70 ms</td>
-    <td style="white-space: nowrap; text-align: right">±1.45%</td>
-    <td style="white-space: nowrap; text-align: right">32.62 ms</td>
-    <td style="white-space: nowrap; text-align: right">33.33 ms</td>
+    <td style="white-space: nowrap; text-align: right">30.71</td>
+    <td style="white-space: nowrap; text-align: right">32.56 ms</td>
+    <td style="white-space: nowrap; text-align: right">±0.94%</td>
+    <td style="white-space: nowrap; text-align: right">32.69 ms</td>
+    <td style="white-space: nowrap; text-align: right">32.74 ms</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (MapArray)</td>
-    <td style="white-space: nowrap; text-align: right">12.25</td>
-    <td style="white-space: nowrap; text-align: right">81.62 ms</td>
-    <td style="white-space: nowrap; text-align: right">±1.26%</td>
-    <td style="white-space: nowrap; text-align: right">82.14 ms</td>
-    <td style="white-space: nowrap; text-align: right">82.28 ms</td>
+    <td style="white-space: nowrap; text-align: right">12.05</td>
+    <td style="white-space: nowrap; text-align: right">82.97 ms</td>
+    <td style="white-space: nowrap; text-align: right">±1.77%</td>
+    <td style="white-space: nowrap; text-align: right">83.32 ms</td>
+    <td style="white-space: nowrap; text-align: right">84.24 ms</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (RRBVector)</td>
-    <td style="white-space: nowrap; text-align: right">1.60</td>
-    <td style="white-space: nowrap; text-align: right">626.62 ms</td>
-    <td style="white-space: nowrap; text-align: right">±0.00%</td>
-    <td style="white-space: nowrap; text-align: right">626.62 ms</td>
-    <td style="white-space: nowrap; text-align: right">626.62 ms</td>
+    <td style="white-space: nowrap; text-align: right">7.20</td>
+    <td style="white-space: nowrap; text-align: right">138.86 ms</td>
+    <td style="white-space: nowrap; text-align: right">±0.52%</td>
+    <td style="white-space: nowrap; text-align: right">138.86 ms</td>
+    <td style="white-space: nowrap; text-align: right">139.37 ms</td>
   </tr>
 
 </table>
@@ -1501,26 +1501,26 @@ Comparison
     <th style="text-align: right">Slower</th>
   <tr>
     <td style="white-space: nowrap">Kernel.++/2 (list)</td>
-    <td style="white-space: nowrap;text-align: right">774.24</td>
+    <td style="white-space: nowrap;text-align: right">828.42</td>
     <td>&nbsp;</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (ErlangArray)</td>
-    <td style="white-space: nowrap; text-align: right">30.58</td>
-    <td style="white-space: nowrap; text-align: right">25.32x</td>
+    <td style="white-space: nowrap; text-align: right">30.71</td>
+    <td style="white-space: nowrap; text-align: right">26.97x</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (MapArray)</td>
-    <td style="white-space: nowrap; text-align: right">12.25</td>
-    <td style="white-space: nowrap; text-align: right">63.19x</td>
+    <td style="white-space: nowrap; text-align: right">12.05</td>
+    <td style="white-space: nowrap; text-align: right">68.74x</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (RRBVector)</td>
-    <td style="white-space: nowrap; text-align: right">1.60</td>
-    <td style="white-space: nowrap; text-align: right">485.15x</td>
+    <td style="white-space: nowrap; text-align: right">7.20</td>
+    <td style="white-space: nowrap; text-align: right">115.04x</td>
   </tr>
 
 </table>
@@ -1581,38 +1581,38 @@ Run Time
 
   <tr>
     <td style="white-space: nowrap">Kernel.++/2 (list)</td>
-    <td style="white-space: nowrap; text-align: right">655.93</td>
-    <td style="white-space: nowrap; text-align: right">1.52 ms</td>
-    <td style="white-space: nowrap; text-align: right">±107.08%</td>
-    <td style="white-space: nowrap; text-align: right">0.59 ms</td>
-    <td style="white-space: nowrap; text-align: right">3.41 ms</td>
+    <td style="white-space: nowrap; text-align: right">831.03</td>
+    <td style="white-space: nowrap; text-align: right">1.20 ms</td>
+    <td style="white-space: nowrap; text-align: right">±84.47%</td>
+    <td style="white-space: nowrap; text-align: right">0.65 ms</td>
+    <td style="white-space: nowrap; text-align: right">2.38 ms</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (ErlangArray)</td>
-    <td style="white-space: nowrap; text-align: right">13.95</td>
-    <td style="white-space: nowrap; text-align: right">71.70 ms</td>
-    <td style="white-space: nowrap; text-align: right">±2.44%</td>
-    <td style="white-space: nowrap; text-align: right">71.70 ms</td>
-    <td style="white-space: nowrap; text-align: right">72.93 ms</td>
+    <td style="white-space: nowrap; text-align: right">13.93</td>
+    <td style="white-space: nowrap; text-align: right">71.77 ms</td>
+    <td style="white-space: nowrap; text-align: right">±1.74%</td>
+    <td style="white-space: nowrap; text-align: right">71.77 ms</td>
+    <td style="white-space: nowrap; text-align: right">72.66 ms</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (MapArray)</td>
-    <td style="white-space: nowrap; text-align: right">6.22</td>
-    <td style="white-space: nowrap; text-align: right">160.87 ms</td>
+    <td style="white-space: nowrap; text-align: right">6.15</td>
+    <td style="white-space: nowrap; text-align: right">162.62 ms</td>
     <td style="white-space: nowrap; text-align: right">±0.00%</td>
-    <td style="white-space: nowrap; text-align: right">160.87 ms</td>
-    <td style="white-space: nowrap; text-align: right">160.87 ms</td>
+    <td style="white-space: nowrap; text-align: right">162.62 ms</td>
+    <td style="white-space: nowrap; text-align: right">162.62 ms</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (RRBVector)</td>
-    <td style="white-space: nowrap; text-align: right">0.80</td>
-    <td style="white-space: nowrap; text-align: right">1253.35 ms</td>
+    <td style="white-space: nowrap; text-align: right">3.54</td>
+    <td style="white-space: nowrap; text-align: right">282.88 ms</td>
     <td style="white-space: nowrap; text-align: right">±0.00%</td>
-    <td style="white-space: nowrap; text-align: right">1253.35 ms</td>
-    <td style="white-space: nowrap; text-align: right">1253.35 ms</td>
+    <td style="white-space: nowrap; text-align: right">282.88 ms</td>
+    <td style="white-space: nowrap; text-align: right">282.88 ms</td>
   </tr>
 
 </table>
@@ -1627,26 +1627,26 @@ Comparison
     <th style="text-align: right">Slower</th>
   <tr>
     <td style="white-space: nowrap">Kernel.++/2 (list)</td>
-    <td style="white-space: nowrap;text-align: right">655.93</td>
+    <td style="white-space: nowrap;text-align: right">831.03</td>
     <td>&nbsp;</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (ErlangArray)</td>
-    <td style="white-space: nowrap; text-align: right">13.95</td>
-    <td style="white-space: nowrap; text-align: right">47.03x</td>
+    <td style="white-space: nowrap; text-align: right">13.93</td>
+    <td style="white-space: nowrap; text-align: right">59.65x</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (MapArray)</td>
-    <td style="white-space: nowrap; text-align: right">6.22</td>
-    <td style="white-space: nowrap; text-align: right">105.52x</td>
+    <td style="white-space: nowrap; text-align: right">6.15</td>
+    <td style="white-space: nowrap; text-align: right">135.14x</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (RRBVector)</td>
-    <td style="white-space: nowrap; text-align: right">0.80</td>
-    <td style="white-space: nowrap; text-align: right">822.12x</td>
+    <td style="white-space: nowrap; text-align: right">3.54</td>
+    <td style="white-space: nowrap; text-align: right">235.09x</td>
   </tr>
 
 </table>
@@ -1707,38 +1707,38 @@ Run Time
 
   <tr>
     <td style="white-space: nowrap">Kernel.++/2 (list)</td>
-    <td style="white-space: nowrap; text-align: right">167.61</td>
-    <td style="white-space: nowrap; text-align: right">5.97 ms</td>
-    <td style="white-space: nowrap; text-align: right">±0.00%</td>
-    <td style="white-space: nowrap; text-align: right">5.97 ms</td>
-    <td style="white-space: nowrap; text-align: right">5.97 ms</td>
+    <td style="white-space: nowrap; text-align: right">167.15</td>
+    <td style="white-space: nowrap; text-align: right">5.98 ms</td>
+    <td style="white-space: nowrap; text-align: right">±1.26%</td>
+    <td style="white-space: nowrap; text-align: right">5.98 ms</td>
+    <td style="white-space: nowrap; text-align: right">6.04 ms</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (ErlangArray)</td>
-    <td style="white-space: nowrap; text-align: right">7.36</td>
-    <td style="white-space: nowrap; text-align: right">135.94 ms</td>
+    <td style="white-space: nowrap; text-align: right">7.26</td>
+    <td style="white-space: nowrap; text-align: right">137.67 ms</td>
     <td style="white-space: nowrap; text-align: right">±0.00%</td>
-    <td style="white-space: nowrap; text-align: right">135.94 ms</td>
-    <td style="white-space: nowrap; text-align: right">135.94 ms</td>
+    <td style="white-space: nowrap; text-align: right">137.67 ms</td>
+    <td style="white-space: nowrap; text-align: right">137.67 ms</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (MapArray)</td>
-    <td style="white-space: nowrap; text-align: right">2.49</td>
-    <td style="white-space: nowrap; text-align: right">401.30 ms</td>
+    <td style="white-space: nowrap; text-align: right">2.38</td>
+    <td style="white-space: nowrap; text-align: right">420.80 ms</td>
     <td style="white-space: nowrap; text-align: right">±0.00%</td>
-    <td style="white-space: nowrap; text-align: right">401.30 ms</td>
-    <td style="white-space: nowrap; text-align: right">401.30 ms</td>
+    <td style="white-space: nowrap; text-align: right">420.80 ms</td>
+    <td style="white-space: nowrap; text-align: right">420.80 ms</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (RRBVector)</td>
-    <td style="white-space: nowrap; text-align: right">0.39</td>
-    <td style="white-space: nowrap; text-align: right">2564.59 ms</td>
+    <td style="white-space: nowrap; text-align: right">1.76</td>
+    <td style="white-space: nowrap; text-align: right">567.48 ms</td>
     <td style="white-space: nowrap; text-align: right">±0.00%</td>
-    <td style="white-space: nowrap; text-align: right">2564.59 ms</td>
-    <td style="white-space: nowrap; text-align: right">2564.59 ms</td>
+    <td style="white-space: nowrap; text-align: right">567.48 ms</td>
+    <td style="white-space: nowrap; text-align: right">567.48 ms</td>
   </tr>
 
 </table>
@@ -1753,26 +1753,26 @@ Comparison
     <th style="text-align: right">Slower</th>
   <tr>
     <td style="white-space: nowrap">Kernel.++/2 (list)</td>
-    <td style="white-space: nowrap;text-align: right">167.61</td>
+    <td style="white-space: nowrap;text-align: right">167.15</td>
     <td>&nbsp;</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (ErlangArray)</td>
-    <td style="white-space: nowrap; text-align: right">7.36</td>
-    <td style="white-space: nowrap; text-align: right">22.78x</td>
+    <td style="white-space: nowrap; text-align: right">7.26</td>
+    <td style="white-space: nowrap; text-align: right">23.01x</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (MapArray)</td>
-    <td style="white-space: nowrap; text-align: right">2.49</td>
-    <td style="white-space: nowrap; text-align: right">67.26x</td>
+    <td style="white-space: nowrap; text-align: right">2.38</td>
+    <td style="white-space: nowrap; text-align: right">70.34x</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (RRBVector)</td>
-    <td style="white-space: nowrap; text-align: right">0.39</td>
-    <td style="white-space: nowrap; text-align: right">429.86x</td>
+    <td style="white-space: nowrap; text-align: right">1.76</td>
+    <td style="white-space: nowrap; text-align: right">94.86x</td>
   </tr>
 
 </table>
@@ -1833,38 +1833,38 @@ Run Time
 
   <tr>
     <td style="white-space: nowrap">Kernel.++/2 (list)</td>
-    <td style="white-space: nowrap; text-align: right">441.96</td>
-    <td style="white-space: nowrap; text-align: right">2.26 ms</td>
+    <td style="white-space: nowrap; text-align: right">99.16</td>
+    <td style="white-space: nowrap; text-align: right">10.09 ms</td>
     <td style="white-space: nowrap; text-align: right">±0.00%</td>
-    <td style="white-space: nowrap; text-align: right">2.26 ms</td>
-    <td style="white-space: nowrap; text-align: right">2.26 ms</td>
+    <td style="white-space: nowrap; text-align: right">10.09 ms</td>
+    <td style="white-space: nowrap; text-align: right">10.09 ms</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (ErlangArray)</td>
-    <td style="white-space: nowrap; text-align: right">3.57</td>
-    <td style="white-space: nowrap; text-align: right">279.99 ms</td>
+    <td style="white-space: nowrap; text-align: right">3.64</td>
+    <td style="white-space: nowrap; text-align: right">274.91 ms</td>
     <td style="white-space: nowrap; text-align: right">±0.00%</td>
-    <td style="white-space: nowrap; text-align: right">279.99 ms</td>
-    <td style="white-space: nowrap; text-align: right">279.99 ms</td>
+    <td style="white-space: nowrap; text-align: right">274.91 ms</td>
+    <td style="white-space: nowrap; text-align: right">274.91 ms</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (MapArray)</td>
-    <td style="white-space: nowrap; text-align: right">1.12</td>
-    <td style="white-space: nowrap; text-align: right">894.15 ms</td>
+    <td style="white-space: nowrap; text-align: right">1.11</td>
+    <td style="white-space: nowrap; text-align: right">898.03 ms</td>
     <td style="white-space: nowrap; text-align: right">±0.00%</td>
-    <td style="white-space: nowrap; text-align: right">894.15 ms</td>
-    <td style="white-space: nowrap; text-align: right">894.15 ms</td>
+    <td style="white-space: nowrap; text-align: right">898.03 ms</td>
+    <td style="white-space: nowrap; text-align: right">898.03 ms</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (RRBVector)</td>
-    <td style="white-space: nowrap; text-align: right">0.194</td>
-    <td style="white-space: nowrap; text-align: right">5150.17 ms</td>
+    <td style="white-space: nowrap; text-align: right">0.87</td>
+    <td style="white-space: nowrap; text-align: right">1146.97 ms</td>
     <td style="white-space: nowrap; text-align: right">±0.00%</td>
-    <td style="white-space: nowrap; text-align: right">5150.17 ms</td>
-    <td style="white-space: nowrap; text-align: right">5150.17 ms</td>
+    <td style="white-space: nowrap; text-align: right">1146.97 ms</td>
+    <td style="white-space: nowrap; text-align: right">1146.97 ms</td>
   </tr>
 
 </table>
@@ -1879,26 +1879,26 @@ Comparison
     <th style="text-align: right">Slower</th>
   <tr>
     <td style="white-space: nowrap">Kernel.++/2 (list)</td>
-    <td style="white-space: nowrap;text-align: right">441.96</td>
+    <td style="white-space: nowrap;text-align: right">99.16</td>
     <td>&nbsp;</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (ErlangArray)</td>
-    <td style="white-space: nowrap; text-align: right">3.57</td>
-    <td style="white-space: nowrap; text-align: right">123.75x</td>
+    <td style="white-space: nowrap; text-align: right">3.64</td>
+    <td style="white-space: nowrap; text-align: right">27.26x</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (MapArray)</td>
-    <td style="white-space: nowrap; text-align: right">1.12</td>
-    <td style="white-space: nowrap; text-align: right">395.18x</td>
+    <td style="white-space: nowrap; text-align: right">1.11</td>
+    <td style="white-space: nowrap; text-align: right">89.05x</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (RRBVector)</td>
-    <td style="white-space: nowrap; text-align: right">0.194</td>
-    <td style="white-space: nowrap; text-align: right">2276.18x</td>
+    <td style="white-space: nowrap; text-align: right">0.87</td>
+    <td style="white-space: nowrap; text-align: right">113.73x</td>
   </tr>
 
 </table>
@@ -1959,38 +1959,38 @@ Run Time
 
   <tr>
     <td style="white-space: nowrap">Kernel.++/2 (list)</td>
-    <td style="white-space: nowrap; text-align: right">209.09</td>
-    <td style="white-space: nowrap; text-align: right">0.00478 s</td>
+    <td style="white-space: nowrap; text-align: right">218.34</td>
+    <td style="white-space: nowrap; text-align: right">0.00458 s</td>
     <td style="white-space: nowrap; text-align: right">±0.00%</td>
-    <td style="white-space: nowrap; text-align: right">0.00478 s</td>
-    <td style="white-space: nowrap; text-align: right">0.00478 s</td>
+    <td style="white-space: nowrap; text-align: right">0.00458 s</td>
+    <td style="white-space: nowrap; text-align: right">0.00458 s</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (ErlangArray)</td>
-    <td style="white-space: nowrap; text-align: right">1.43</td>
-    <td style="white-space: nowrap; text-align: right">0.70 s</td>
+    <td style="white-space: nowrap; text-align: right">1.33</td>
+    <td style="white-space: nowrap; text-align: right">0.75 s</td>
     <td style="white-space: nowrap; text-align: right">±0.00%</td>
-    <td style="white-space: nowrap; text-align: right">0.70 s</td>
-    <td style="white-space: nowrap; text-align: right">0.70 s</td>
+    <td style="white-space: nowrap; text-align: right">0.75 s</td>
+    <td style="white-space: nowrap; text-align: right">0.75 s</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (MapArray)</td>
-    <td style="white-space: nowrap; text-align: right">0.44</td>
-    <td style="white-space: nowrap; text-align: right">2.26 s</td>
+    <td style="white-space: nowrap; text-align: right">0.47</td>
+    <td style="white-space: nowrap; text-align: right">2.13 s</td>
     <td style="white-space: nowrap; text-align: right">±0.00%</td>
-    <td style="white-space: nowrap; text-align: right">2.26 s</td>
-    <td style="white-space: nowrap; text-align: right">2.26 s</td>
+    <td style="white-space: nowrap; text-align: right">2.13 s</td>
+    <td style="white-space: nowrap; text-align: right">2.13 s</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (RRBVector)</td>
-    <td style="white-space: nowrap; text-align: right">0.0956</td>
-    <td style="white-space: nowrap; text-align: right">10.46 s</td>
+    <td style="white-space: nowrap; text-align: right">0.44</td>
+    <td style="white-space: nowrap; text-align: right">2.29 s</td>
     <td style="white-space: nowrap; text-align: right">±0.00%</td>
-    <td style="white-space: nowrap; text-align: right">10.46 s</td>
-    <td style="white-space: nowrap; text-align: right">10.46 s</td>
+    <td style="white-space: nowrap; text-align: right">2.29 s</td>
+    <td style="white-space: nowrap; text-align: right">2.29 s</td>
   </tr>
 
 </table>
@@ -2005,26 +2005,26 @@ Comparison
     <th style="text-align: right">Slower</th>
   <tr>
     <td style="white-space: nowrap">Kernel.++/2 (list)</td>
-    <td style="white-space: nowrap;text-align: right">209.09</td>
+    <td style="white-space: nowrap;text-align: right">218.34</td>
     <td>&nbsp;</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (ErlangArray)</td>
-    <td style="white-space: nowrap; text-align: right">1.43</td>
-    <td style="white-space: nowrap; text-align: right">146.21x</td>
+    <td style="white-space: nowrap; text-align: right">1.33</td>
+    <td style="white-space: nowrap; text-align: right">164.41x</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (MapArray)</td>
-    <td style="white-space: nowrap; text-align: right">0.44</td>
-    <td style="white-space: nowrap; text-align: right">472.8x</td>
+    <td style="white-space: nowrap; text-align: right">0.47</td>
+    <td style="white-space: nowrap; text-align: right">465.54x</td>
   </tr>
 
   <tr>
     <td style="white-space: nowrap">Arrays.concat/2 (RRBVector)</td>
-    <td style="white-space: nowrap; text-align: right">0.0956</td>
-    <td style="white-space: nowrap; text-align: right">2187.4x</td>
+    <td style="white-space: nowrap; text-align: right">0.44</td>
+    <td style="white-space: nowrap; text-align: right">500.01x</td>
   </tr>
 
 </table>
