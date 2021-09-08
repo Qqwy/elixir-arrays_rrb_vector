@@ -24,12 +24,12 @@ defmodule ArraysRRBVector do
 
   - This module does not support hot-code reloading. (NIFs can theoretically support it, but Rustler currently [does not](https://github.com/rusterlium/rustler/issues/13))
   - The arrays created in this module support all Elixir/Erlang terms.
-    For most terms this is performant.
-    Because of limitations of the NIF interface, storing/reading the following terms to/from arrays has a bit more overhead:
-      - References
-      - Functions
-      - Integers which are larger than what fits in a 64-bit signed number.
-      - Ports
+  For most terms this is performant.
+  Because of limitations of the NIF interface, storing/reading the following terms to/from arrays has a bit more overhead:
+  - References
+  - Functions
+  - Integers which are larger than what fits in a 64-bit signed number.
+  - Ports
 
   """
 
@@ -46,8 +46,8 @@ defmodule ArraysRRBVector do
   @doc """
   Returns an empty RRBVector.
 
-      iex> ArraysRRBVector.empty()
-      #ArraysRRBVector<[]>
+  iex> ArraysRRBVector.empty()
+  #ArraysRRBVector<[]>
   """
   def empty() do
     %__MODULE__{handle: empty_impl()}
@@ -59,11 +59,11 @@ defmodule ArraysRRBVector do
   @doc """
   The number of elements in `vector`.
 
-      iex> ArraysRRBVector.size(ArraysRRBVector.empty())
-      0
+  iex> ArraysRRBVector.size(ArraysRRBVector.empty())
+  0
 
-      iex> ArraysRRBVector.size(ArraysRRBVector.append(ArraysRRBVector.empty(), 42))
-      1
+  iex> ArraysRRBVector.size(ArraysRRBVector.append(ArraysRRBVector.empty(), 42))
+  1
   """
   def size(%__MODULE__{handle: handle}) do
     size_impl(handle)
@@ -217,15 +217,15 @@ defmodule ArraysRRBVector do
   Extracts a contiguous subsequence of elements from the RRBVector,
   and returns it as its own RRBVector.
 
-      iex> ArraysRRBVector.new(1..10) |> ArraysRRBVector.slice(2, 3)
-      #ArraysRRBVector<[3, 4, 5]>
+  iex> ArraysRRBVector.new(1..10) |> ArraysRRBVector.slice(2, 3)
+  #ArraysRRBVector<[3, 4, 5]>
   """
   def slice(%__MODULE__{handle: handle}, lower, amount) when lower >= 0 do
     if lower + amount < size_impl(handle) do
-      new_handle = slice_impl(handle, lower, lower + amount)
-      %__MODULE__{handle: new_handle}
-    else
-      raise ArgumentError
+               new_handle = slice_impl(handle, lower, lower + amount)
+               %__MODULE__{handle: new_handle}
+               else
+                 raise ArgumentError
     end
   end
 
@@ -318,5 +318,58 @@ defmodule ArraysRRBVector do
     defdelegate to_list(vector), to: @for
     defdelegate slice(vector, start_index, amount), to: @for
     def empty(_), do:  @for.empty()
+  end
+
+  defimpl Enumerable do
+    def member?(_array, _item), do: {:error, @for}
+
+    def count(array) do
+      {:ok, @for.size(array)}
+    end
+
+    def reduce(array, acc, fun) do
+      size = @for.size(array)
+      do_reduce(array, acc, fun, 0, size)
+    end
+
+    defp do_reduce(_, {:halt, acc}, _, _, _) do
+      {:halted, acc}
+    end
+
+    defp do_reduce(array, {:suspend, acc}, fun, index, size) do
+      {:suspended, acc, &do_reduce(array, &1, fun, index, size)}
+    end
+
+    defp do_reduce(_array, {:cont, acc}, _fun, index, index) do
+      {:done, acc}
+    end
+
+    defp do_reduce(array, {:cont, acc}, fun, index, size) do
+      elem = @for.get(array, index)
+      do_reduce(array, fun.(elem, acc), fun, index + 1, size)
+    end
+
+    def slice(array) do
+      size = @for.size(array)
+      builder = fn a, b ->
+        array
+        |> @for.slice(a, b)
+        |> @for.to_list()
+      end
+      {:ok, size, builder}
+    end
+  end
+
+
+  defimpl Extractable do
+    def extract(array) do
+      Arrays.Protocol.extract(array)
+    end
+  end
+
+  defimpl Insertable do
+    def insert(array, item) do
+      {:ok, @for.append(array, item)}
+    end
   end
 end
