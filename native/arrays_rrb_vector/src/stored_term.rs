@@ -11,6 +11,21 @@ use rustler::Term;
 mod term_box;
 use term_box::TermBox;
 
+/// A StoredTerm is an arbitrary Elixir/Erlang term
+/// which no longer is bound to the calling NIF `Env`.
+/// As such, these values can be freely stored and used in any Rust code.
+///
+/// For 'common' types such as (small) integers, floats, atoms, tuples, lists, strings and PIDS,
+/// we store a Rust alternative datastructure which can be inspected and used.
+///
+/// For 'rare' types such as functions, references, ports, bignums (integers larger than fits in an i64), exceptions,
+/// and 'unknown types' that might be added to a new version of OTP after this code was compiled,
+/// we create a `TermBox` instead.
+/// That is, we copy the opaque Erlang term to an `OwnedEnv` (a 'process-independent environment')
+/// from which it can be extracted later.
+/// This means however that these kinds of terms:
+/// - Cannot be manipulated in Rust
+/// - Take a bit more overhead to store w.r.t. the common types.
 #[derive(Clone)]
 pub enum StoredTerm {
     Integer(i64),
@@ -81,6 +96,8 @@ fn convert_to_stored_term(term: &Term) -> StoredTerm {
     }
 }
 
+/// The Encoder implementation for StoredTerm will never fail
+/// as any Erlang type can be converted to a StoredTerm.
 impl<'a> Decoder<'a> for StoredTerm {
     fn decode(term: Term) -> NifResult<Self> {
         Ok(convert_to_stored_term(&term))
