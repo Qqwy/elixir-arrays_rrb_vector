@@ -39,12 +39,7 @@ pub struct VectorReverseIteratorPair(
         Box<std::sync::Mutex<std::iter::Rev<im::vector::Iter<'static, StoredTerm>>>>,
     >,
 );
-// pub struct VectorIteratorPair<'a> {
-//     vector: Vector<StoredTerm>,
-//     iterator: im::vector::Iter<'a, StoredTerm>,
-// }
 
-// pub struct VectorIterator<'a>(im::vector::Iter<'a, StoredTerm>);
 type VectorIteratorPairResource<'a> = ResourceArc<VectorIteratorPair>;
 type VectorReverseIteratorPairResource<'a> = ResourceArc<VectorReverseIteratorPair>;
 

@@ -1,8 +1,8 @@
 defmodule ArraysRRBVector do
+  defp nif_error(), do: :erlang.nif_error(:nif_not_loaded)
+
   use Rustler, otp_app: :arrays_rrb_vector, crate: :arrays_rrb_vector
 
-
-  @nif_error (quote do :erlang.nif_error(:nif_not_loaded) end)
 
   @moduledoc """
   Documentation for `ArraysRRBVector`.
@@ -29,7 +29,7 @@ defmodule ArraysRRBVector do
   end
 
   @doc false
-  def empty_impl(), do: @nif_error
+  def empty_impl(), do: nif_error()
 
   @doc """
   The number of elements in `vector`.
@@ -45,24 +45,10 @@ defmodule ArraysRRBVector do
   end
 
   @doc false
-  def size_impl(_vector), do: 0 # @nif_error
+  def size_impl(_vector), do: 0 # nif_error()
 
   @doc """
   Appends an element to an RRBVector.
-
-  Note that currently not all Elixir/Erlang terms are supported,
-  because of limitations of NIFs.
-
-  In the case this function is called with an unsupported kind of term,
-  `ArgumentError` is raised.
-
-  Not currently supported are:
-
-   - References
-   - PIDs
-   - Ports
-   - Functions
-   - Integers that are larger than would fit in a signed 64-bit number.
   """
   def append(vector, item)
   def append(%__MODULE__{contents: contents}, item) do
@@ -74,7 +60,7 @@ defmodule ArraysRRBVector do
     end
   end
 
-  def append_impl(_vector, _item), do: @nif_error
+  def append_impl(_vector, _item), do: nif_error()
 
 
   def extract(vector)
@@ -87,7 +73,7 @@ defmodule ArraysRRBVector do
     end
   end
 
-  def extract_impl(_vector), do: @nif_error
+  def extract_impl(_vector), do: nif_error()
 
   def to_list(vector)
   def to_list(%__MODULE__{contents: contents}) do
@@ -95,7 +81,7 @@ defmodule ArraysRRBVector do
   end
 
   @doc false
-  def to_list_impl(_vector), do: @nif_error
+  def to_list_impl(_vector), do: nif_error()
 
   def reduce(vector, acc, fun)
   def reduce(%__MODULE__{contents: contents}, acc, fun) do
@@ -129,14 +115,14 @@ defmodule ArraysRRBVector do
   # However, this is OK since an iterator is intended to only be used for a single iteration.
   # It should never leave this module.
   @doc false
-  def to_iterator(_vector), do: @nif_error
+  def to_iterator(_vector), do: nif_error()
   @doc false
-  def iterator_next(_vector_iterator), do: @nif_error
+  def iterator_next(_vector_iterator), do: nif_error()
 
   @doc false
-  def to_reverse_iterator(_vector), do: @nif_error
+  def to_reverse_iterator(_vector), do: nif_error()
   @doc false
-  def reverse_iterator_next(_vector_iterator), do: @nif_error
+  def reverse_iterator_next(_vector_iterator), do: nif_error()
 
   defimpl Inspect do
     import Inspect.Algebra
@@ -192,9 +178,8 @@ defmodule ArraysRRBVector do
     end
   end
 
-  @doc false
-  def get_impl(_vector, _index), do: @nif_error
+  defp get_impl(_vector, _index), do: nif_error()
 
-  @doc false
-  def replace_impl(_vector, _index, _value), do: @nif_error
+  defp replace_impl(_vector, _index, _value), do: nif_error()
+
 end
