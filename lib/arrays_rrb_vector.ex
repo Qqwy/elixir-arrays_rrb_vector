@@ -217,12 +217,12 @@ defmodule ArraysRRBVector do
   Extracts a contiguous subsequence of elements from the RRBVector,
   and returns it as its own RRBVector.
 
-      iex> ArraysRRBVector.new(1..10) |> ArraysRRBVector.slice(2, 5)
+      iex> ArraysRRBVector.new(1..10) |> ArraysRRBVector.slice(2, 3)
       #ArraysRRBVector<[3, 4, 5]>
   """
-  def slice(%__MODULE__{handle: handle}, lower, higher) when lower >= 0 and lower <= higher do
-    if higher < size_impl(handle) do
-      new_handle = slice_impl(handle, lower, higher)
+  def slice(%__MODULE__{handle: handle}, lower, amount) when lower >= 0 do
+    if lower + amount < size_impl(handle) do
+      new_handle = slice_impl(handle, lower, lower + amount)
       %__MODULE__{handle: new_handle}
     else
       raise ArgumentError
@@ -302,5 +302,21 @@ defmodule ArraysRRBVector do
   @impl Access
   def pop(%__MODULE__{}, _index) do
     raise ArgumentError, @undefined_pop_message
+  end
+
+
+  defimpl Arrays.Protocol do
+    defdelegate size(vector), to: @for
+    defdelegate map(vector, fun), to: @for
+    defdelegate reduce(vector, acc, fun), to: @for
+    defdelegate reduce_right(vector, acc, fun), to: @for
+    defdelegate get(vector, index), to: @for
+    defdelegate replace(vector, index, item), to: @for
+    defdelegate append(vector, item), to: @for
+    defdelegate extract(vector), to: @for
+    defdelegate resize(vector, size, default), to: @for
+    defdelegate to_list(vector), to: @for
+    defdelegate slice(vector, start_index, amount), to: @for
+    def empty(_), do:  @for.empty()
   end
 end
