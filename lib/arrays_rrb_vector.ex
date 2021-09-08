@@ -11,9 +11,9 @@ defmodule ArraysRRBVector do
 
   @type t() :: %__MODULE__{}
   # def __struct__() do
-  #   %{__struct__: __MODULE__, contents: empty_impl()}
+  #   %{__struct__: __MODULE__, handle: empty_impl()}
   # end
-  defstruct [:contents]
+  defstruct [:handle]
   # def __struct__(kv) do
   #   Enum.reduce(kv, __struct__(), fn {k, v}, acc -> :maps.update(k, v, acc) end)
   # end
@@ -25,7 +25,7 @@ defmodule ArraysRRBVector do
       #ArraysRRBVector<[]>
   """
   def empty() do
-    %__MODULE__{contents: empty_impl()}
+    %__MODULE__{handle: empty_impl()}
   end
 
   @doc false
@@ -40,8 +40,8 @@ defmodule ArraysRRBVector do
       iex> ArraysRRBVector.size(ArraysRRBVector.append(ArraysRRBVector.empty(), 42))
       1
   """
-  def size(%__MODULE__{contents: contents}) do
-    size_impl(contents)
+  def size(%__MODULE__{handle: handle}) do
+    size_impl(handle)
   end
 
   @doc false
@@ -51,19 +51,19 @@ defmodule ArraysRRBVector do
   Appends an element to an RRBVector.
   """
   def append(vector, item)
-  def append(%__MODULE__{contents: contents}, item) do
-    new_contents = append_impl(contents, item)
-    %__MODULE__{contents: new_contents}
+  def append(%__MODULE__{handle: handle}, item) do
+    new_handle = append_impl(handle, item)
+    %__MODULE__{handle: new_handle}
   end
 
   def append_impl(_vector, _item), do: nif_error()
 
 
   def extract(vector)
-  def extract(%__MODULE__{contents: contents}) do
-    case extract_impl(contents) do
-      {:ok, {val, new_contents}} ->
-        {:ok, {val, %__MODULE__{contents: new_contents}}}
+  def extract(%__MODULE__{handle: handle}) do
+    case extract_impl(handle) do
+      {:ok, {val, new_handle}} ->
+        {:ok, {val, %__MODULE__{handle: new_handle}}}
       {:error, :empty} ->
         {:error, :empty}
     end
@@ -72,16 +72,16 @@ defmodule ArraysRRBVector do
   def extract_impl(_vector), do: nif_error()
 
   def to_list(vector)
-  def to_list(%__MODULE__{contents: contents}) do
-    to_list_impl(contents)
+  def to_list(%__MODULE__{handle: handle}) do
+    to_list_impl(handle)
   end
 
   @doc false
   def to_list_impl(_vector), do: nif_error()
 
   def reduce(vector, acc, fun)
-  def reduce(%__MODULE__{contents: contents}, acc, fun) do
-    do_reduce(to_iterator(contents), acc, fun)
+  def reduce(%__MODULE__{handle: handle}, acc, fun) do
+    do_reduce(to_iterator(handle), acc, fun)
   end
 
   defp do_reduce(iterator, acc, fun) do
@@ -93,8 +93,8 @@ defmodule ArraysRRBVector do
   end
 
   def reduce_right(vector, acc, fun)
-  def reduce_right(%__MODULE__{contents: contents}, acc, fun) do
-    do_reduce_right(to_iterator(contents), acc, fun)
+  def reduce_right(%__MODULE__{handle: handle}, acc, fun) do
+    do_reduce_right(to_iterator(handle), acc, fun)
   end
 
   defp do_reduce_right(iterator, acc, fun) do
@@ -123,8 +123,8 @@ defmodule ArraysRRBVector do
   defimpl Inspect do
     import Inspect.Algebra
 
-    def inspect(%@for{contents: contents}, opts) do
-      list = @for.to_list_impl(contents)
+    def inspect(%@for{handle: handle}, opts) do
+      list = @for.to_list_impl(handle)
       concat([
         "##{inspect(@for)}<",
         Inspect.List.inspect(list, %{opts | charlists: :as_lists}),
@@ -157,25 +157,31 @@ defmodule ArraysRRBVector do
   end
 
 
-  def get(%__MODULE__{contents: contents}, index) when is_integer(index) do
-    if index in (0..(size_impl(contents) - 1)) do
-      get_impl(contents, index)
+  def get(%__MODULE__{handle: handle}, index) when is_integer(index) do
+    if index in (0..(size_impl(handle) - 1)) do
+      get_impl(handle, index)
     else
       raise ArgumentError
     end
   end
 
-  def replace(%__MODULE__{contents: contents}, index, value) when is_integer(index) do
-    if index in (0..(size_impl(contents) - 1)) do
-      new_contents = replace_impl(contents, index, value)
-      %__MODULE__{contents: new_contents}
+  def replace(%__MODULE__{handle: handle}, index, value) when is_integer(index) do
+    if index in (0..(size_impl(handle) - 1)) do
+      new_handle = replace_impl(handle, index, value)
+      %__MODULE__{handle: new_handle}
     else
       raise ArgumentError
     end
   end
 
-  defp get_impl(_vector, _index), do: nif_error()
+  def get_impl(_vector, _index), do: nif_error()
 
-  defp replace_impl(_vector, _index, _value), do: nif_error()
+  def replace_impl(_vector, _index, _value), do: nif_error()
 
+
+  def resize(%__MODULE__{handle: handle}, size, default \\ nil) do
+    new_handle = resize_impl(handle, size, default)
+    %__MODULE__{handle: new_handle}
+  end
+  def resize_impl(_handle, _size, _default), do: nif_error()
 end

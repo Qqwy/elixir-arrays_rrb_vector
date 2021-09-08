@@ -1,6 +1,3 @@
-// use std::cmp::min;
-// use std::cmp::Ordering;
-
 mod stored_term;
 
 use rustler::types::atom::Atom;
@@ -24,30 +21,49 @@ mod atoms {
     }
 }
 
+/// An immutable 'RRB'-vector which stores arbitrary Elixir/Erlang terms.
 pub struct TermVector(Vector<StoredTerm>);
 type VectorResource = ResourceArc<TermVector>;
 
+/// A left-to-right iterator which is able to reference the vector it originated from.
+// TODO There might be ways to clean this up;
+// the type wrapping seems _very_ complex.
 pub struct VectorIteratorPair(
     OwningHandle<
         Box<Vector<StoredTerm>>,
         Box<std::sync::Mutex<im::vector::Iter<'static, StoredTerm>>>,
     >,
 );
+type VectorIteratorPairResource<'a> = ResourceArc<VectorIteratorPair>;
+
+/// A right-to-left iterator which is able to reference the vector it originated from.
+// TODO There might be ways to clean this up;
+// the type wrapping seems _very_ complex.
 pub struct VectorReverseIteratorPair(
     OwningHandle<
         Box<Vector<StoredTerm>>,
         Box<std::sync::Mutex<std::iter::Rev<im::vector::Iter<'static, StoredTerm>>>>,
     >,
 );
-
-type VectorIteratorPairResource<'a> = ResourceArc<VectorIteratorPair>;
 type VectorReverseIteratorPairResource<'a> = ResourceArc<VectorReverseIteratorPair>;
+
+// /// A left-to-right mutable iterator which is able to reference the vector it originated from.
+// /// Used for mapping
+// // TODO There might be ways to clean this up;
+// // the type wrapping seems _very_ complex.
+// pub struct VectorIteratorMutPair(
+//     OwningHandle<
+//             Box<Vector<StoredTerm>>,
+//         Box<std::sync::Mutex<im::vector::IterMut<'static, StoredTerm>>>,
+//         >,
+// );
+// type VectorIteratorMutPairResource<'a> = ResourceArc<VectorIteratorMutPair>;
 
 fn load(env: Env, _info: Term) -> bool {
     rustler::resource!(TermVector, env);
     rustler::resource!(VectorIteratorPair, env);
     rustler::resource!(VectorReverseIteratorPair, env);
-    // rustler::resource!(VectorIterator, env);
+    // rustler::resource!(VectorIteratorMutPair, env);
     true
 }
 
@@ -101,6 +117,29 @@ fn to_reverse_iterator(vector: VectorResource) -> VectorReverseIteratorPairResou
     ResourceArc::new(VectorReverseIteratorPair(oh))
 }
 
+// #[rustler::nif]
+// fn to_iterator_mut(vector: VectorResource) -> VectorIteratorMutPairResource<'static> {
+//     let new_vector = Box::new(vector.0.clone());
+//     let oh = OwningHandle::new_with_fn(new_vector, unsafe {
+//         |vec| {
+//             let mvec = vec as *mut im::Vector<stored_term::StoredTerm>; // TODO is this safe?
+//             Box::new(std::sync::Mutex::new((*mvec).iter_mut()))
+//         }
+//     });
+//     ResourceArc::new(VectorIteratorMutPair(oh))
+// }
+
+// fn iterator_mut_replace_and_next(iterator_pair: VectorIteratorMutPairResource<'static>, replacement: StoredTerm) -> Result<StoredTerm, Atom> {
+//     let iterator = iterator_pair.0.lock().unwrap()
+
+//     *iterator.get() = replacement;
+//     let next_val =
+//         match iterator.next().map(|x| x.clone()) {
+//             Some(val) => Ok(val),
+//             None => Err(atoms::empty()),
+//         };
+// }
+
 #[rustler::nif]
 fn iterator_next(iterator_pair: VectorIteratorPairResource<'static>) -> Result<StoredTerm, Atom> {
     match iterator_pair.0.lock().unwrap().next().map(|x| x.clone()) {
@@ -131,6 +170,21 @@ fn replace_impl(vector: VectorResource, index: usize, item: StoredTerm) -> Vecto
     ResourceArc::new(TermVector(new_vector))
 }
 
+#[rustler::nif]
+fn resize_impl(vector: VectorResource, size: usize, default: StoredTerm) -> VectorResource {
+    let mut new_vector = vector.0.clone();
+    let vector_size = new_vector.len();
+    if size < vector_size {
+        new_vector.truncate(size);
+    } else if size == vector_size {
+        // Do nothing
+    } else {
+        new_vector = new_vector + std::iter::repeat(default).take(size - vector_size).collect();
+    };
+
+    ResourceArc::new(TermVector(new_vector))
+}
+
 rustler::init!(
     "Elixir.ArraysRRBVector",
     [
@@ -145,6 +199,7 @@ rustler::init!(
         reverse_iterator_next,
         get_impl,
         replace_impl,
+        resize_impl,
     ],
     load = load
 );
