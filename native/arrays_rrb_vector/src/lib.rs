@@ -1,18 +1,16 @@
 // use std::cmp::min;
 // use std::cmp::Ordering;
 
-
 mod stored_term;
 
 use rustler::types::atom::Atom;
 use rustler::Env;
-use rustler::Term;
 use rustler::ResourceArc;
+use rustler::Term;
 
-
-use owning_ref::OwningHandle;
 use core::ops::Deref;
 use im::Vector;
+use owning_ref::OwningHandle;
 
 use crate::stored_term::StoredTerm;
 
@@ -26,12 +24,21 @@ mod atoms {
     }
 }
 
-
 pub struct TermVector(Vector<StoredTerm>);
 type VectorResource = ResourceArc<TermVector>;
 
-pub struct VectorIteratorPair(OwningHandle<Box<Vector<StoredTerm>>, Box::<std::sync::Mutex<im::vector::Iter<'static, StoredTerm>>>>);
-pub struct VectorReverseIteratorPair(OwningHandle<Box<Vector<StoredTerm>>, Box::<std::sync::Mutex<std::iter::Rev<im::vector::Iter<'static, StoredTerm>>>>>);
+pub struct VectorIteratorPair(
+    OwningHandle<
+        Box<Vector<StoredTerm>>,
+        Box<std::sync::Mutex<im::vector::Iter<'static, StoredTerm>>>,
+    >,
+);
+pub struct VectorReverseIteratorPair(
+    OwningHandle<
+        Box<Vector<StoredTerm>>,
+        Box<std::sync::Mutex<std::iter::Rev<im::vector::Iter<'static, StoredTerm>>>>,
+    >,
+);
 // pub struct VectorIteratorPair<'a> {
 //     vector: Vector<StoredTerm>,
 //     iterator: im::vector::Iter<'a, StoredTerm>,
@@ -73,7 +80,7 @@ fn append_impl(vector: VectorResource, item: StoredTerm) -> Result<VectorResourc
 
 #[rustler::nif]
 fn extract_impl(vector: VectorResource) -> Result<(StoredTerm, VectorResource), Atom> {
-    let mut new_vector : Vector<StoredTerm> = vector.deref().0.clone();
+    let mut new_vector: Vector<StoredTerm> = vector.deref().0.clone();
     match new_vector.pop_back() {
         Some(item) => Ok((item, ResourceArc::new(TermVector(new_vector)))),
         None => Err(atoms::empty()),
@@ -88,20 +95,18 @@ fn to_list_impl(vector: VectorResource) -> Vec<StoredTerm> {
 #[rustler::nif]
 fn to_iterator(vector: VectorResource) -> VectorIteratorPairResource<'static> {
     let new_vector = Box::new(vector.0.clone());
-    let oh = OwningHandle::new_with_fn(
-        new_vector,
-        unsafe { |vec| Box::new(std::sync::Mutex::new((*vec).iter())) }
-    );
+    let oh = OwningHandle::new_with_fn(new_vector, unsafe {
+        |vec| Box::new(std::sync::Mutex::new((*vec).iter()))
+    });
     ResourceArc::new(VectorIteratorPair(oh))
 }
 
 #[rustler::nif]
 fn to_reverse_iterator(vector: VectorResource) -> VectorReverseIteratorPairResource<'static> {
     let new_vector = Box::new(vector.0.clone());
-    let oh = OwningHandle::new_with_fn(
-        new_vector,
-        unsafe { |vec| Box::new(std::sync::Mutex::new((*vec).iter().rev())) }
-    );
+    let oh = OwningHandle::new_with_fn(new_vector, unsafe {
+        |vec| Box::new(std::sync::Mutex::new((*vec).iter().rev()))
+    });
     ResourceArc::new(VectorReverseIteratorPair(oh))
 }
 
@@ -109,15 +114,17 @@ fn to_reverse_iterator(vector: VectorResource) -> VectorReverseIteratorPairResou
 fn iterator_next(iterator_pair: VectorIteratorPairResource<'static>) -> Result<StoredTerm, Atom> {
     match iterator_pair.0.lock().unwrap().next().map(|x| x.clone()) {
         Some(val) => Ok(val),
-        None =>  Err(atoms::empty()),
+        None => Err(atoms::empty()),
     }
 }
 
 #[rustler::nif]
-fn reverse_iterator_next(iterator_pair: VectorReverseIteratorPairResource<'static>) -> Result<StoredTerm, Atom> {
+fn reverse_iterator_next(
+    iterator_pair: VectorReverseIteratorPairResource<'static>,
+) -> Result<StoredTerm, Atom> {
     match iterator_pair.0.lock().unwrap().next().map(|x| x.clone()) {
         Some(val) => Ok(val),
-        None =>  Err(atoms::empty()),
+        None => Err(atoms::empty()),
     }
 }
 
@@ -135,20 +142,18 @@ fn replace_impl(vector: VectorResource, index: usize, item: StoredTerm) -> Vecto
 
 rustler::init!(
     "Elixir.ArraysRRBVector",
-    [empty_impl,
-
-     append_impl,
-     extract_impl,
-
-     size_impl,
-
-     to_list_impl,
-
-     to_iterator,
-     to_reverse_iterator,
-     iterator_next,
-     reverse_iterator_next,
-
-     get_impl,
-     replace_impl,
-    ], load = load);
+    [
+        empty_impl,
+        append_impl,
+        extract_impl,
+        size_impl,
+        to_list_impl,
+        to_iterator,
+        to_reverse_iterator,
+        iterator_next,
+        reverse_iterator_next,
+        get_impl,
+        replace_impl,
+    ],
+    load = load
+);
