@@ -61,12 +61,11 @@ fn size_impl(vector: VectorResource) -> usize {
 }
 
 #[rustler::nif]
-fn append_impl(vector: VectorResource, term: Term) -> Result<VectorResource, Atom> {
-    // let item = match convert_to_supported_term(&term) {
+fn append_impl(vector: VectorResource, item: StoredTerm) -> Result<VectorResource, Atom> {
+    // let item = match convert_to_stored_term(&term) {
     //     None => return Err(atoms::unsupported_type()),
     //     Some(term) => term,
     // };
-    let item = stored_term::convert_to_supported_term(&term);
     let mut new_vector = vector.0.clone();
     new_vector.push_back(item);
     Ok(ResourceArc::new(TermVector(new_vector)))
@@ -128,8 +127,7 @@ fn get_impl(vector: VectorResource, index: usize) -> StoredTerm {
 }
 
 #[rustler::nif]
-fn replace_impl(vector: VectorResource, index: usize, term: Term) -> VectorResource {
-    let item = stored_term::convert_to_supported_term(&term);
+fn replace_impl(vector: VectorResource, index: usize, item: StoredTerm) -> VectorResource {
     let mut new_vector = vector.0.clone();
     new_vector.set(index, item);
     ResourceArc::new(TermVector(new_vector))

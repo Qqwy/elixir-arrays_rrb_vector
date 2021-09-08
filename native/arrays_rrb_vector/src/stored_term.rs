@@ -1,12 +1,14 @@
-    use rustler::env::OwnedEnv;
-    use rustler::env::SavedTerm;
-    use rustler::Encoder;
-    use rustler::Env;
-    use rustler::Term;
-    use rustler::LocalPid;
-    use rustler::types::tuple::get_tuple;
-    use rustler::types::tuple::make_tuple;
-    use rustler::types::atom::Atom;
+use rustler::env::OwnedEnv;
+use rustler::env::SavedTerm;
+use rustler::Encoder;
+use rustler::Decoder;
+use rustler::NifResult;
+use rustler::Env;
+use rustler::Term;
+use rustler::LocalPid;
+use rustler::types::tuple::get_tuple;
+use rustler::types::tuple::make_tuple;
+use rustler::types::atom::Atom;
 
 // Put this in a ResourceArc:
 #[derive(Clone)]
@@ -82,35 +84,41 @@ impl Encoder for StoredTerm {
 }
 
 
-pub fn convert_to_supported_term(term: &Term) -> StoredTerm {
+fn convert_to_stored_term(term: &Term) -> StoredTerm {
     match term.get_type() {
-        rustler::TermType::Atom => term.decode().map(StoredTerm::AnAtom).unwrap(),
-        rustler::TermType::Binary => term.decode().map(StoredTerm::Bitstring).unwrap(),
+        rustler::TermType::Atom => term.decode().map(StoredTerm::AnAtom).expect("get_type() returned Atom but could not decode as atom?!"),
+        rustler::TermType::Binary => term.decode().map(StoredTerm::Bitstring).expect("get_type() returned Binary but could not decode as binary?!"),
+        rustler::TermType::Number =>
+            term.decode::<i64>().map(StoredTerm::Integer)
+            .or(term.decode::<f64>().map(StoredTerm::Float))
+            .unwrap_or(StoredTerm::Other(TermBox::new(term))), // <- To handle bignums
         rustler::TermType::EmptyList => StoredTerm::EmptyList(),
         rustler::TermType::List => {
-            let items = term.decode::<Vec<Term>>().unwrap();
+            let items = term.decode::<Vec<Term>>().expect("get_type() returned List but could not decode as list?!");
             let converted_items =
                 items
                 .iter()
-                .map(convert_to_supported_term)
+                .map(convert_to_stored_term)
                 .collect();
 
             StoredTerm::List(converted_items)
         },
-        rustler::TermType::Number =>
-            term.decode::<i64>().map(StoredTerm::Integer)
-            .or(term.decode::<f64>().map(StoredTerm::Float))
-            .unwrap_or(StoredTerm::Other(TermBox::new(term))),
         rustler::TermType::Tuple => {
-            let elems = get_tuple(*term).unwrap();
+            let elems = get_tuple(*term).expect("get_type() returned Tuple but could not decode as tuple?!");
             let converted_elems =
                 elems
                 .iter()
-                .map(convert_to_supported_term)
+                .map(convert_to_stored_term)
                 .collect();
             StoredTerm::Tuple(converted_elems)
         }
-        rustler::TermType::Pid => term.decode().map(StoredTerm::Pid).unwrap(),
+        rustler::TermType::Pid => term.decode().map(StoredTerm::Pid).expect("get_type() returned Pid but couold not decode as LocalPid?"),
         _other => StoredTerm::Other(TermBox::new(term)),
+    }
+}
+
+impl<'a> Decoder<'a> for StoredTerm {
+    fn decode(term: Term) -> NifResult<Self> {
+        Ok(convert_to_stored_term(&term))
     }
 }
