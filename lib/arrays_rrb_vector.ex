@@ -231,4 +231,19 @@ defmodule ArraysRRBVector do
 
   @doc false
   def slice_impl(_handle, _lower, _higher), do: nif_error()
+
+  @doc """
+  Maps a value over a vector, returning another vector.
+
+  Note that the current implementation is relatively slow,
+  as we turn the whole vector in a list,
+  map over this list, and then turn the list back into a vector.
+  A more effient implementation is probably possible, but a bit tricky to write.
+  (PR's welcome! 😉)
+  """
+  def map(vector, fun) do
+    fun
+    |> :lists.map(to_list(vector))
+    |> new()
+  end
 end
