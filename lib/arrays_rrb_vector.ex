@@ -5,7 +5,32 @@ defmodule ArraysRRBVector do
 
 
   @moduledoc """
-  Documentation for `ArraysRRBVector`.
+  A NIF-based immutable array, based on a 'Relaxed Radix Balanced Trie Vector'.
+
+  This Elixir module wraps [the vector exposed by the Rust library `im`](https://docs.rs/im/15.0.0/im/vector/struct.Vector.html).
+  This is a persistent vector datastructure that contains the following optimizations:
+
+  - Smart head/tail chunking
+  - The ability to do updates in-place when there is only one owner of a particular (part of a) vector.
+
+  Most operations run either in O(1), amortized O(1), or O(log64(n)).
+
+
+  ### Dealing with NIFs
+
+  Because this library is implemented in Rust code, wrapped by a bunch of 'Natively Implemented Function's,
+  using the [Rustler](https://github.com/rusterlium/rustler) library for interop,
+  there are some things to keep in mind:
+
+  - This module does not support hot-code reloading. (NIFs can theoretically support it, but Rustler currently [does not](https://github.com/rusterlium/rustler/issues/13))
+  - The arrays created in this module support all Elixir/Erlang terms.
+    For most terms this is performant.
+    Because of limitations of the NIF interface, storing/reading the following terms to/from arrays has a bit more overhead:
+      - References
+      - Functions
+      - Integers which are larger than what fits in a 64-bit signed number.
+      - Ports
+
   """
 
 
@@ -174,8 +199,10 @@ defmodule ArraysRRBVector do
     end
   end
 
+  @doc false
   def get_impl(_vector, _index), do: nif_error()
 
+  @doc false
   def replace_impl(_vector, _index, _value), do: nif_error()
 
 
@@ -183,5 +210,25 @@ defmodule ArraysRRBVector do
     new_handle = resize_impl(handle, size, default)
     %__MODULE__{handle: new_handle}
   end
+  @doc false
   def resize_impl(_handle, _size, _default), do: nif_error()
+
+  @doc """
+  Extracts a contiguous subsequence of elements from the RRBVector,
+  and returns it as its own RRBVector.
+
+      iex> ArraysRRBVector.new(1..10) |> ArraysRRBVector.slice(2, 5)
+      #ArraysRRBVector<[3, 4, 5]>
+  """
+  def slice(%__MODULE__{handle: handle}, lower, higher) when lower >= 0 and lower <= higher do
+    if higher < size_impl(handle) do
+      new_handle = slice_impl(handle, lower, higher)
+      %__MODULE__{handle: new_handle}
+    else
+      raise ArgumentError
+    end
+  end
+
+  @doc false
+  def slice_impl(_handle, _lower, _higher), do: nif_error()
 end

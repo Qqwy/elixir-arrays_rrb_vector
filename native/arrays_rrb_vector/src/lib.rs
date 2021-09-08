@@ -165,8 +165,7 @@ fn get_impl(vector: VectorResource, index: usize) -> StoredTerm {
 
 #[rustler::nif]
 fn replace_impl(vector: VectorResource, index: usize, item: StoredTerm) -> VectorResource {
-    let mut new_vector = vector.0.clone();
-    new_vector.set(index, item);
+    let new_vector = vector.0.update(index, item);
     ResourceArc::new(TermVector(new_vector))
 }
 
@@ -185,6 +184,12 @@ fn resize_impl(vector: VectorResource, size: usize, default: StoredTerm) -> Vect
     ResourceArc::new(TermVector(new_vector))
 }
 
+#[rustler::nif]
+fn slice_impl(vector: VectorResource, lower: usize, higher: usize) -> VectorResource {
+    let slice_vec = vector.0.clone().slice(lower..higher);
+    ResourceArc::new(TermVector(slice_vec))
+}
+
 rustler::init!(
     "Elixir.ArraysRRBVector",
     [
@@ -200,6 +205,7 @@ rustler::init!(
         get_impl,
         replace_impl,
         resize_impl,
+        slice_impl,
     ],
     load = load
 );
