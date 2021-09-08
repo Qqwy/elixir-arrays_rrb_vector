@@ -63,14 +63,10 @@ fn size_impl(vector: VectorResource) -> usize {
 }
 
 #[rustler::nif]
-fn append_impl(vector: VectorResource, item: StoredTerm) -> Result<VectorResource, Atom> {
-    // let item = match convert_to_stored_term(&term) {
-    //     None => return Err(atoms::unsupported_type()),
-    //     Some(term) => term,
-    // };
+fn append_impl(vector: VectorResource, item: StoredTerm) -> VectorResource {
     let mut new_vector = vector.0.clone();
     new_vector.push_back(item);
-    Ok(ResourceArc::new(TermVector(new_vector)))
+    ResourceArc::new(TermVector(new_vector))
 }
 
 #[rustler::nif]

@@ -52,12 +52,8 @@ defmodule ArraysRRBVector do
   """
   def append(vector, item)
   def append(%__MODULE__{contents: contents}, item) do
-    case append_impl(contents, item) do
-      {:ok, new_contents} ->
-        %__MODULE__{contents: new_contents}
-      {:error, :unsupported_type} ->
-        raise ArgumentError
-    end
+    new_contents = append_impl(contents, item)
+    %__MODULE__{contents: new_contents}
   end
 
   def append_impl(_vector, _item), do: nif_error()
