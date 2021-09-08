@@ -28,6 +28,9 @@ impl TermBox {
         }
     }
 
+    /// Use the value inside the TermBox by copying it back over to
+    /// the supplied `Env`
+    /// (which is usually the `Env` supplied to the NIF call that wants to use the term.)
     pub fn get<'a>(&self, env: Env<'a>) -> Term<'a> {
         // Copy over term from owned environment to the target environment
         self.inner.owned_env.run(|inner_env| {
@@ -38,6 +41,8 @@ impl TermBox {
 }
 
 impl TermBoxContents {
+    /// Stores a `Term` in a TermBox,
+    /// by copying it to a new OwnedEnv.
     fn new(term: &Term) -> Self {
         let owned_env = OwnedEnv::new();
         let saved_term = owned_env.save(*term);
