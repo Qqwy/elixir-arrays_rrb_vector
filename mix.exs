@@ -1,5 +1,6 @@
 defmodule ArraysRRBVector.MixProject do
   use Mix.Project
+  @source_url "https://github.com/Qqwy/elixir-arrays_rrb_vector"
 
   def project do
     [
@@ -7,7 +8,11 @@ defmodule ArraysRRBVector.MixProject do
       version: "0.1.0",
       elixir: "~> 1.11",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      name: "ArraysRRBVector",
+      description: description(),
+      source_url: @source_url,
+      package: package()
     ]
   end
 
@@ -35,4 +40,23 @@ defmodule ArraysRRBVector.MixProject do
       {:benchee_html, "~> 1.0", only: :dev}
     ]
   end
+
+  defp description do
+     """
+     An `Arrays` implementation based on a set of NIFs (Natively Implemented Functions) written in Rust.
+     The internal representation of the array is an immutable persistent datastructure known as a 'Relaxed Radix Balanced Vector', provided by the Rust `im` library.
+     Performance is unfortunately overshadowed by NIF-calling overhead.
+     """
+  end
+
+  defp package() do
+    [
+      name: :arrays_rrb_vector,
+      files: ["lib", "native", "mix.exs", "README*"],
+      maintainers: ["Qqwy/Wiebe-Marten Wijnja"],
+      licenses: ["Apache 2.0"],
+      links: %{"GitHub" => @source_url}
+    ]
+  end
+
 end
