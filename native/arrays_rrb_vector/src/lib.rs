@@ -6,9 +6,9 @@ use rustler::ResourceArc;
 use rustler::Term;
 
 use core::ops::Deref;
-use std::cmp::Ordering;
 use im::Vector;
 use owning_ref::OwningHandle;
+use std::cmp::Ordering;
 
 use crate::stored_term::StoredTerm;
 
@@ -42,10 +42,7 @@ type VectorIteratorPairResource<'a> = ResourceArc<VectorIteratorPair>;
 // the type wrapping seems _very_ complex.
 type VectorReverseIterator = std::iter::Rev<im::vector::Iter<'static, StoredTerm>>;
 pub struct VectorReverseIteratorPair(
-    OwningHandle<
-        Box<Vector<StoredTerm>>,
-        Box<std::sync::Mutex<VectorReverseIterator>>,
-    >,
+    OwningHandle<Box<Vector<StoredTerm>>, Box<std::sync::Mutex<VectorReverseIterator>>>,
 );
 type VectorReverseIteratorPairResource<'a> = ResourceArc<VectorReverseIteratorPair>;
 
@@ -176,11 +173,14 @@ fn resize_impl(vector: VectorResource, size: usize, default: StoredTerm) -> Vect
     let mut new_vector = vector.0.clone();
     let vector_size = new_vector.len();
     match size.cmp(&vector_size) {
-        Ordering::Less =>
-            new_vector.truncate(size),
-        Ordering::Greater =>
-            new_vector = new_vector + std::iter::repeat(default).take(size - vector_size).collect(),
-        Ordering::Equal => (),// Do nothing
+        Ordering::Less => new_vector.truncate(size),
+        Ordering::Greater => {
+            new_vector = new_vector
+                + std::iter::repeat(default)
+                    .take(size - vector_size)
+                    .collect()
+        }
+        Ordering::Equal => (), // Do nothing
     }
 
     ResourceArc::new(TermVector(new_vector))
