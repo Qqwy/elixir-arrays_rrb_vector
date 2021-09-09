@@ -12,13 +12,13 @@ With benchmarking this implementation against the pure-Elixir implementations of
 The benchmarks can be run by running `mix run benchmarks/benchmarks.exs`.
 Below graphs were constructed from the CSV results.
 
-![random_update](https://github.com/Qqwy/elixir-arrays_rrb_vector/blob/master/benchmark_runs/random_element_update.png)
-![random_update](https://github.com/Qqwy/elixir-arrays_rrb_vector/blob/master/benchmark_runs/random_element_update_focus.png)
-![random_read](https://github.com/Qqwy/elixir-arrays_rrb_vector/blob/master/benchmark_runs/random_element_read.png)
-![random_read](https://github.com/Qqwy/elixir-arrays_rrb_vector/blob/master/benchmark_runs/random_element_read_focus.png)
-![append](https://github.com/Qqwy/elixir-arrays_rrb_vector/blob/master/benchmark_runs/append_graph.png)
-![append](https://github.com/Qqwy/elixir-arrays_rrb_vector/blob/master/benchmark_runs/append_graph_focus.png)
-![append](https://github.com/Qqwy/elixir-arrays_rrb_vector/blob/master/benchmark_runs/append_graph_focus2.png)
+![random_update](https://github.com/Qqwy/elixir-arrays_rrb_vector/blob/main/benchmark_runs/random_element_update.png)
+![random_update](https://github.com/Qqwy/elixir-arrays_rrb_vector/blob/main/benchmark_runs/random_element_update_focus.png)
+![random_read](https://github.com/Qqwy/elixir-arrays_rrb_vector/blob/main/benchmark_runs/random_element_read.png)
+![random_read](https://github.com/Qqwy/elixir-arrays_rrb_vector/blob/main/benchmark_runs/random_element_read_focus.png)
+![append](https://github.com/Qqwy/elixir-arrays_rrb_vector/blob/main/benchmark_runs/append_graph.png)
+![append](https://github.com/Qqwy/elixir-arrays_rrb_vector/blob/main/benchmark_runs/append_graph_focus.png)
+![append](https://github.com/Qqwy/elixir-arrays_rrb_vector/blob/main/benchmark_runs/append_graph_focus2.png)
 
 
 ## Installation
