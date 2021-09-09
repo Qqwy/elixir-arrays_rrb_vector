@@ -44,7 +44,7 @@ defmodule ArraysRRBVector.MixProject do
   defp description do
      """
      An `Arrays` implementation based on a set of NIFs (Natively Implemented Functions) written in Rust.
-     The internal representation of the array is an immutable persistent datastructure known as a 'Relaxed Radix Balanced Vector', provided by the Rust `im` library.
+     The internal representation of the array is known as a 'Relaxed Radix Balanced Vector', provided by the Rust `im` library.
      Performance is unfortunately overshadowed by NIF-calling overhead.
      """
   end
@@ -52,7 +52,7 @@ defmodule ArraysRRBVector.MixProject do
   defp package() do
     [
       name: :arrays_rrb_vector,
-      files: ["lib", "native", "mix.exs", "README*"],
+      files: ["lib", "native/arrays_rrb_vector/src", "native/arrays_rrb_vector/Cargo.toml", "mix.exs", "README*"],
       maintainers: ["Qqwy/Wiebe-Marten Wijnja"],
       licenses: ["Apache 2.0"],
       links: %{"GitHub" => @source_url}
