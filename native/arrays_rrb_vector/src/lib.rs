@@ -6,6 +6,7 @@ use rustler::ResourceArc;
 use rustler::Term;
 
 use core::ops::Deref;
+use std::cmp::Ordering;
 use im::Vector;
 use owning_ref::OwningHandle;
 
@@ -39,10 +40,11 @@ type VectorIteratorPairResource<'a> = ResourceArc<VectorIteratorPair>;
 /// A right-to-left iterator which is able to reference the vector it originated from.
 // TODO There might be ways to clean this up;
 // the type wrapping seems _very_ complex.
+type VectorReverseIterator = std::iter::Rev<im::vector::Iter<'static, StoredTerm>>;
 pub struct VectorReverseIteratorPair(
     OwningHandle<
         Box<Vector<StoredTerm>>,
-        Box<std::sync::Mutex<std::iter::Rev<im::vector::Iter<'static, StoredTerm>>>>,
+        Box<std::sync::Mutex<VectorReverseIterator>>,
     >,
 );
 type VectorReverseIteratorPairResource<'a> = ResourceArc<VectorReverseIteratorPair>;
@@ -142,7 +144,7 @@ fn to_reverse_iterator(vector: VectorResource) -> VectorReverseIteratorPairResou
 
 #[rustler::nif]
 fn iterator_next(iterator_pair: VectorIteratorPairResource<'static>) -> Result<StoredTerm, Atom> {
-    match iterator_pair.0.lock().unwrap().next().map(|x| x.clone()) {
+    match iterator_pair.0.lock().unwrap().next().cloned() {
         Some(val) => Ok(val),
         None => Err(atoms::empty()),
     }
@@ -152,7 +154,7 @@ fn iterator_next(iterator_pair: VectorIteratorPairResource<'static>) -> Result<S
 fn reverse_iterator_next(
     iterator_pair: VectorReverseIteratorPairResource<'static>,
 ) -> Result<StoredTerm, Atom> {
-    match iterator_pair.0.lock().unwrap().next().map(|x| x.clone()) {
+    match iterator_pair.0.lock().unwrap().next().cloned() {
         Some(val) => Ok(val),
         None => Err(atoms::empty()),
     }
@@ -173,13 +175,13 @@ fn replace_impl(vector: VectorResource, index: usize, item: StoredTerm) -> Vecto
 fn resize_impl(vector: VectorResource, size: usize, default: StoredTerm) -> VectorResource {
     let mut new_vector = vector.0.clone();
     let vector_size = new_vector.len();
-    if size < vector_size {
-        new_vector.truncate(size);
-    } else if size == vector_size {
-        // Do nothing
-    } else {
-        new_vector = new_vector + std::iter::repeat(default).take(size - vector_size).collect();
-    };
+    match size.cmp(&vector_size) {
+        Ordering::Less =>
+            new_vector.truncate(size),
+        Ordering::Greater =>
+            new_vector = new_vector + std::iter::repeat(default).take(size - vector_size).collect(),
+        Ordering::Equal => (),// Do nothing
+    }
 
     ResourceArc::new(TermVector(new_vector))
 }

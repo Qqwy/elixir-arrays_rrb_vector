@@ -71,8 +71,8 @@ fn convert_to_stored_term(term: &Term) -> StoredTerm {
         rustler::TermType::Number => term
             .decode::<i64>()
             .map(StoredTerm::Integer)
-            .or(term.decode::<f64>().map(StoredTerm::Float))
-            .unwrap_or(StoredTerm::Other(TermBox::new(term))), // <- To handle bignums
+            .or_else(|_| term.decode::<f64>().map(StoredTerm::Float))
+            .unwrap_or_else(|_| StoredTerm::Other(TermBox::new(term))), // <- To handle bignums
         rustler::TermType::EmptyList => StoredTerm::EmptyList(),
         rustler::TermType::List => {
             let items = term
