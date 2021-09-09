@@ -70,6 +70,7 @@ defmodule Benchmarks do
       }
       },
       after_each: fn _ -> :erlang.garbage_collect() end, # make garbage collection unlikely to occur _during_ benchmark.
+      profile_after: true,
       inputs: @inputs,
       warmup: @warmup,
       time: @time,
@@ -138,6 +139,7 @@ defmodule Benchmarks do
       }
       },
       after_each: fn _ -> :erlang.garbage_collect() end, # make garbage collection unlikely to occur _during_ benchmark.
+      profile_after: true,
       inputs: @inputs,
       warmup: @warmup,
       time: @time,
@@ -202,6 +204,7 @@ defmodule Benchmarks do
         |> Map.put(:value, :rand.uniform())
       end,
       after_each: fn _ -> :erlang.garbage_collect() end, # make garbage collection unlikely to occur _during_ benchmark.
+      profile_after: true,
       inputs: @inputs,
       warmup: @warmup,
       time: @time,
@@ -273,6 +276,7 @@ defmodule Benchmarks do
         %{range: range, value: :rand.uniform(range.last)}
       end,
       after_each: fn _ -> :erlang.garbage_collect() end, # make garbage collection unlikely to occur _during_ benchmark.
+      profile_after: true,
       inputs: @inputs,
       warmup: @warmup,
       time: @time,

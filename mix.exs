@@ -34,10 +34,10 @@ defmodule ArraysRRBVector.MixProject do
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
       {:excoveralls, "~> 0.13", only: [:test]},
 
-      {:benchee, "~> 1.0", only: :dev},
+      {:benchee, [git: "https://github.com/bencheeorg/benchee", only: :dev, override: true]},
       {:benchee_csv, "~> 1.0", only: :dev},
       {:benchee_markdown, "~> 0.2", only: :dev},
-      {:benchee_html, "~> 1.0", only: :dev}
+      {:benchee_html, "~> 1.0", only: :dev }
     ]
   end
 

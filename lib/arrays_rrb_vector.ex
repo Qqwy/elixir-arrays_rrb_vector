@@ -1,7 +1,12 @@
 defmodule ArraysRRBVector do
   defp nif_error(), do: :erlang.nif_error(:nif_not_loaded)
 
-  use Rustler, otp_app: :arrays_rrb_vector, crate: :arrays_rrb_vector, mode: :release
+  use Rustler, [
+    otp_app: :arrays_rrb_vector,
+    crate: :arrays_rrb_vector,
+    mode: :release,
+    env: [{"RUSTFLAGS", "-C target-cpu=native"}]
+  ]
 
 
   @moduledoc """
@@ -159,12 +164,12 @@ defmodule ArraysRRBVector do
   end
 
   @doc false
-  def collectable_fun(vector, command) do
+  def collectable_fun(handle, command) do
     case command do
       {:cont, elem} ->
-        append(vector, elem)
+        append_impl(handle, elem)
       :done ->
-        vector
+        %__MODULE__{handle: handle}
       :halt ->
         :ok
     end
@@ -173,7 +178,7 @@ defmodule ArraysRRBVector do
 
   defimpl Collectable do
     def into(vector) do
-      {vector, &@for.collectable_fun/2}
+      {vector.handle, &@for.collectable_fun/2}
     end
   end
 
@@ -312,7 +317,14 @@ defmodule ArraysRRBVector do
     defdelegate reduce_right(vector, acc, fun), to: @for
     defdelegate get(vector, index), to: @for
     defdelegate replace(vector, index, item), to: @for
-    defdelegate append(vector, item), to: @for
+    # defdelegate append(vector, item), to: @for
+
+    def append(vector, item)
+    def append(%@for{handle: handle}, item) do
+      new_handle = @for.append_impl(handle, item)
+      %@for{handle: new_handle}
+    end
+
     defdelegate extract(vector), to: @for
     defdelegate resize(vector, size, default), to: @for
     defdelegate to_list(vector), to: @for

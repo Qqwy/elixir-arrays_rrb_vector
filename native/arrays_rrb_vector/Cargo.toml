@@ -14,3 +14,7 @@ rustler = "0.22.0"
 # serde_rustler = "0.0.3" # Not supported for OTP 24 yet.
 im = "15.0.0"
 owning_ref = "0.4.1"
+
+[profile.release]
+lto = true
+codegen-units = 1
