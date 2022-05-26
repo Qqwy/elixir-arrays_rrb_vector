@@ -24,3 +24,4 @@ arrays_rrb_vector-*.tar
 
 # Temporary files, for example, from tests.
 /tmp/
+*.~undo-tree~

@@ -1,5 +1,3 @@
-mod stored_term;
-
 use rustler::types::atom::Atom;
 use rustler::Env;
 use rustler::ResourceArc;
@@ -9,8 +7,9 @@ use core::ops::Deref;
 use im::Vector;
 use owning_ref::OwningHandle;
 use std::cmp::Ordering;
+use rustler::Encoder;
 
-use crate::stored_term::StoredTerm;
+use rustler_stored_term::StoredTerm;
 
 mod atoms {
     rustler::atoms! {
@@ -192,6 +191,25 @@ fn slice_impl(vector: VectorResource, lower: usize, higher: usize) -> VectorReso
     ResourceArc::new(TermVector(slice_vec))
 }
 
+#[rustler::nif]
+fn from_list_impl(list: Vec<StoredTerm>) -> VectorResource {
+    let vector = list.into_iter().rev().collect();
+    ResourceArc::new(TermVector(vector))
+}
+
+#[rustler::nif]
+fn map_impl<'a>(env: Env<'a>, vector: VectorResource, unary_fun: Term<'a>) -> VectorResource {
+    let mut new_vector = vector.0.clone();
+    let chunks = new_vector.leaves_mut();
+    let name = rustler::types::atom::Atom::from_bytes(env, b"Elixir.ArraysRRBVector.Mapper").unwrap().encode(env);
+    for chunk in chunks {
+        let result : Result<(Atom, Vec<StoredTerm>), rustler::Error> = rustler_elixir_fun::apply_elixir_fun(env, name, unary_fun, chunk.encode(env)).unwrap().decode();
+        let mut result = result.unwrap().1;
+        chunk.swap_with_slice(&mut result);
+    }
+    ResourceArc::new(TermVector(new_vector))
+}
+
 rustler::init!(
     "Elixir.ArraysRRBVector",
     [
@@ -208,6 +226,7 @@ rustler::init!(
         replace_impl,
         resize_impl,
         slice_impl,
+        from_list_impl,
     ],
     load = load
 );

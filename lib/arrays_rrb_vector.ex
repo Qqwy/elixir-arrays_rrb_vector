@@ -5,7 +5,7 @@ defmodule ArraysRRBVector do
     otp_app: :arrays_rrb_vector,
     crate: :arrays_rrb_vector,
     mode: :release,
-    env: [{"RUSTFLAGS", "-C target-cpu=native"}]
+    # env: [{"RUSTFLAGS", "-C target-cpu=native"}]
   ]
 
 
@@ -109,6 +109,18 @@ defmodule ArraysRRBVector do
   @doc false
   def to_list_impl(_vector), do: nif_error()
 
+
+  def map(vector, fun)
+  def map(%__MODULE__{handle: handle}) when is_function(fun, 1) do
+    map_impl(handle, fn chunk ->
+      IO.inspect(chunk, label: :chunk)
+      Enum.map(chunk, fun)
+    end)
+  end
+
+  @doc false
+  def map_impl(_vector), do: nif_error()
+
   def reduce(vector, acc, fun)
   def reduce(%__MODULE__{handle: handle}, acc, fun) do
     do_reduce(to_iterator(handle), acc, fun)
@@ -164,11 +176,16 @@ defmodule ArraysRRBVector do
   end
 
   @doc false
-  def collectable_fun(handle, command) do
+  def collectable_fun({handle, list}, command) do
     case command do
       {:cont, elem} ->
-        append_impl(handle, elem)
+        # {handle, [elem | list]}
+        {append_impl(handle, elem), list}
       :done ->
+        # handle2 = from_list_impl(list)
+        # %__MODULE__{handle: handle2}
+        # handle3 = concat_impl(handle, handle2)
+        # TODO
         %__MODULE__{handle: handle}
       :halt ->
         :ok
@@ -178,13 +195,19 @@ defmodule ArraysRRBVector do
 
   defimpl Collectable do
     def into(vector) do
-      {vector.handle, &@for.collectable_fun/2}
+      {{vector.handle, []}, &@for.collectable_fun/2}
     end
   end
 
   def new(enumerable) do
-    Enum.into(enumerable, empty())
+    # Enum.into(enumerable, empty())
+    enumerable
+    |> Enum.to_list()
+    |> from_list_impl()
   end
+
+  @doc false
+  def from_list_impl(_list), do: nif_error()
 
 
   def get(%__MODULE__{handle: handle}, index) when is_integer(index) do
