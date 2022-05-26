@@ -110,16 +110,21 @@ defmodule ArraysRRBVector do
   def to_list_impl(_vector), do: nif_error()
 
 
-  def map2(vector, fun)
-  def map2(%__MODULE__{handle: handle}, fun) when is_function(fun, 1) do
-    map_impl(handle, fn chunk ->
-      IO.inspect(chunk, label: :chunk)
+  def map(vector, fun)
+  def map(%__MODULE__{handle: handle}, fun) when is_function(fun, 1) do
+    handle
+    |> map_impl(fn chunk ->
+      # IO.inspect(chunk, label: :chunk)
       Enum.map(chunk, fun)
     end)
+    |> then(&%__MODULE__{handle: &1})
   end
 
   @doc false
   def map_impl(_vector, _fun), do: nif_error()
+
+  @doc false
+  def fill_future(_result, _future), do: nif_error()
 
   def reduce(vector, acc, fun)
   def reduce(%__MODULE__{handle: handle}, acc, fun) do
@@ -269,11 +274,11 @@ defmodule ArraysRRBVector do
   A more effient implementation is probably possible, but a bit tricky to write.
   (PR's welcome! 😉)
   """
-  def map(vector, fun) do
-    fun
-    |> :lists.map(to_list(vector))
-    |> new()
-  end
+  # def map(vector, fun) do
+  #   fun
+  #   |> :lists.map(to_list(vector))
+  #   |> new()
+  # end
 
 
   @behaviour Access

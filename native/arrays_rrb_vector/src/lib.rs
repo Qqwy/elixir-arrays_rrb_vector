@@ -58,11 +58,11 @@ type VectorReverseIteratorPairResource<'a> = ResourceArc<VectorReverseIteratorPa
 // type VectorIteratorMutPairResource<'a> = ResourceArc<VectorIteratorMutPair>;
 
 fn load(env: Env, info: Term) -> bool {
+    rustler_elixir_fun::load(env, info);
     rustler::resource!(TermVector, env);
     rustler::resource!(VectorIteratorPair, env);
     rustler::resource!(VectorReverseIteratorPair, env);
     // rustler::resource!(VectorIteratorMutPair, env);
-    rustler_elixir_fun::load(env, info);
     true
 }
 
@@ -198,7 +198,7 @@ fn from_list_impl(list: Vec<StoredTerm>) -> VectorResource {
     ResourceArc::new(TermVector(vector))
 }
 
-#[rustler::nif]
+#[rustler::nif(schedule = "DirtyCpu")]
 fn map_impl<'a>(env: Env<'a>, vector: VectorResource, unary_fun: Term<'a>) -> VectorResource {
     let mut new_vector = vector.0.clone();
     let chunks = new_vector.leaves_mut();
@@ -211,6 +211,15 @@ fn map_impl<'a>(env: Env<'a>, vector: VectorResource, unary_fun: Term<'a>) -> Ve
         chunk.swap_with_slice(&mut result);
     }
     ResourceArc::new(TermVector(new_vector))
+}
+
+
+#[rustler::nif]
+/// Called by the internal Elixir code of this library whenever a function is completed.
+///
+/// Should not be called manually from your own Elixir code.
+fn fill_future<'a>(result: StoredTerm, future: ResourceArc<rustler_elixir_fun::ManualFuture>) {
+    future.fill(result);
 }
 
 rustler::init!(
@@ -231,6 +240,7 @@ rustler::init!(
         slice_impl,
         from_list_impl,
         map_impl,
+        fill_future,
     ],
     load = load
 );
