@@ -57,11 +57,12 @@ type VectorReverseIteratorPairResource<'a> = ResourceArc<VectorReverseIteratorPa
 // );
 // type VectorIteratorMutPairResource<'a> = ResourceArc<VectorIteratorMutPair>;
 
-fn load(env: Env, _info: Term) -> bool {
+fn load(env: Env, info: Term) -> bool {
     rustler::resource!(TermVector, env);
     rustler::resource!(VectorIteratorPair, env);
     rustler::resource!(VectorReverseIteratorPair, env);
     // rustler::resource!(VectorIteratorMutPair, env);
+    rustler_elixir_fun::load(env, info);
     true
 }
 
@@ -202,8 +203,10 @@ fn map_impl<'a>(env: Env<'a>, vector: VectorResource, unary_fun: Term<'a>) -> Ve
     let mut new_vector = vector.0.clone();
     let chunks = new_vector.leaves_mut();
     let name = rustler::types::atom::Atom::from_bytes(env, b"Elixir.ArraysRRBVector.Mapper").unwrap().encode(env);
+    let empty_list = rustler::Term::list_new_empty(env);
     for chunk in chunks {
-        let result : Result<(Atom, Vec<StoredTerm>), rustler::Error> = rustler_elixir_fun::apply_elixir_fun(env, name, unary_fun, chunk.encode(env)).unwrap().decode();
+        let parameters = empty_list.list_prepend(chunk.encode(env));
+        let result : Result<(Atom, Vec<StoredTerm>), rustler::Error> = rustler_elixir_fun::apply_elixir_fun(env, name, unary_fun, parameters).unwrap().decode();
         let mut result = result.unwrap().1;
         chunk.swap_with_slice(&mut result);
     }
@@ -227,6 +230,7 @@ rustler::init!(
         resize_impl,
         slice_impl,
         from_list_impl,
+        map_impl,
     ],
     load = load
 );

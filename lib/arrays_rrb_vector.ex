@@ -110,8 +110,8 @@ defmodule ArraysRRBVector do
   def to_list_impl(_vector), do: nif_error()
 
 
-  def map(vector, fun)
-  def map(%__MODULE__{handle: handle}) when is_function(fun, 1) do
+  def map2(vector, fun)
+  def map2(%__MODULE__{handle: handle}, fun) when is_function(fun, 1) do
     map_impl(handle, fn chunk ->
       IO.inspect(chunk, label: :chunk)
       Enum.map(chunk, fun)
@@ -119,7 +119,7 @@ defmodule ArraysRRBVector do
   end
 
   @doc false
-  def map_impl(_vector), do: nif_error()
+  def map_impl(_vector, _fun), do: nif_error()
 
   def reduce(vector, acc, fun)
   def reduce(%__MODULE__{handle: handle}, acc, fun) do
