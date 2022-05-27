@@ -27,7 +27,7 @@ defmodule ArraysRRBVector.MixProject do
   defp deps do
     [
       {:rustler, "~> 0.25"},
-      {:rustler_elixir_fun, "~> 0.1"},
+      {:rustler_elixir_fun, "~> 0.3.0"},
       {:arrays, "~> 2.0"},
 
       {:ex_doc, "~> 0.23", only: :dev, runtime: false},

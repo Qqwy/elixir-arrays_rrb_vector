@@ -10,6 +10,8 @@ use std::cmp::Ordering;
 use rustler::Encoder;
 
 use rustler_stored_term::StoredTerm;
+use rustler_elixir_fun::ElixirFunCallResult;
+use rustler_elixir_fun::ElixirFunCallResult::*;
 
 mod atoms {
     rustler::atoms! {
@@ -57,8 +59,7 @@ type VectorReverseIteratorPairResource<'a> = ResourceArc<VectorReverseIteratorPa
 // );
 // type VectorIteratorMutPairResource<'a> = ResourceArc<VectorIteratorMutPair>;
 
-fn load(env: Env, info: Term) -> bool {
-    rustler_elixir_fun::load(env, info);
+fn load(env: Env, _info: Term) -> bool {
     rustler::resource!(TermVector, env);
     rustler::resource!(VectorIteratorPair, env);
     rustler::resource!(VectorReverseIteratorPair, env);
@@ -199,27 +200,26 @@ fn from_list_impl(list: Vec<StoredTerm>) -> VectorResource {
 }
 
 #[rustler::nif(schedule = "DirtyCpu")]
-fn map_impl<'a>(env: Env<'a>, vector: VectorResource, unary_fun: Term<'a>) -> VectorResource {
+fn map_impl<'a>(env: Env<'a>, vector: VectorResource, unary_fun: Term<'a>) -> Result<VectorResource, rustler::Error> {
     let mut new_vector = vector.0.clone();
     let chunks = new_vector.leaves_mut();
     let name = rustler::types::atom::Atom::from_bytes(env, b"Elixir.ArraysRRBVector.Mapper").unwrap().encode(env);
     let empty_list = rustler::Term::list_new_empty(env);
     for chunk in chunks {
         let parameters = empty_list.list_prepend(chunk.encode(env));
-        let result : Result<(Atom, Vec<StoredTerm>), rustler::Error> = rustler_elixir_fun::apply_elixir_fun(env, name, unary_fun, parameters).unwrap().decode();
-        let mut result = result.unwrap().1;
-        chunk.swap_with_slice(&mut result);
+        let result : ElixirFunCallResult = rustler_elixir_fun::apply_elixir_fun(env, name, unary_fun, parameters).expect("Expected function call to succeed");
+        println!("{:?}", result.encode(env));
+        // let result : Result<(Atom, Vec<StoredTerm>), rustler::Error> = result.expect("Call result to be a {atom, list(term())}").decode();
+        match result {
+            Success(StoredTerm::List(mut values)) => {
+                // let mut result = result.expect("Result to be a term akin to {:ok, val}").1;
+                chunk.swap_with_slice(&mut values);
+            },
+            other => return Err(rustler::Error::RaiseTerm(Box::new(other)))
+
+        }
     }
-    ResourceArc::new(TermVector(new_vector))
-}
-
-
-#[rustler::nif]
-/// Called by the internal Elixir code of this library whenever a function is completed.
-///
-/// Should not be called manually from your own Elixir code.
-fn fill_future<'a>(result: StoredTerm, future: ResourceArc<rustler_elixir_fun::ManualFuture>) {
-    future.fill(result);
+    Ok(ResourceArc::new(TermVector(new_vector)))
 }
 
 rustler::init!(
@@ -240,7 +240,6 @@ rustler::init!(
         slice_impl,
         from_list_impl,
         map_impl,
-        fill_future,
     ],
     load = load
 );
