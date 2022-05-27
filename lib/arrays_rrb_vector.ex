@@ -110,18 +110,6 @@ defmodule ArraysRRBVector do
   def to_list_impl(_vector), do: nif_error()
 
 
-  def map(vector, fun)
-  def map(%__MODULE__{handle: handle}, fun) when is_function(fun, 1) do
-    handle
-    |> map_impl(fn chunk ->
-      # IO.inspect(chunk, label: :chunk)
-      Enum.map(chunk, fun)
-    end)
-    |> then(&%__MODULE__{handle: &1})
-  end
-
-  @doc false
-  def map_impl(_vector, _fun), do: nif_error()
 
   @doc false
   def fill_future(_result, _future), do: nif_error()
@@ -205,10 +193,13 @@ defmodule ArraysRRBVector do
   end
 
   def new(enumerable) do
-    # Enum.into(enumerable, empty())
-    enumerable
-    |> Enum.to_list()
-    |> from_list_impl()
+    handle =
+      enumerable
+      |> Enum.to_list()
+      |> Enum.reverse()
+      |> from_list_impl()
+
+    %__MODULE__{handle: handle}
   end
 
   @doc false
@@ -266,19 +257,27 @@ defmodule ArraysRRBVector do
   def slice_impl(_handle, _lower, _higher), do: nif_error()
 
   @doc """
-  Maps a value over a vector, returning another vector.
+  Maps a function over a vector, returning another vector.
 
-  Note that the current implementation is relatively slow,
-  as we turn the whole vector in a list,
-  map over this list, and then turn the list back into a vector.
-  A more effient implementation is probably possible, but a bit tricky to write.
-  (PR's welcome! 😉)
+  Calls the elixir function by transferring the vector in chunks between Rust and Elixir,
+  which means that it is reasonably performant.
+
+  (Internally, uses `RustlerElixirFun` to accomplish this.)
+
+  iex> ArraysRRBVector.new(1..10) |> ArraysRRBVector.map(fn x -> x + 2 end)
+  #ArraysRRBVector<[3, 4, 5, 6, 7, 8, 9, 10, 11, 12]>
   """
-  # def map(vector, fun) do
-  #   fun
-  #   |> :lists.map(to_list(vector))
-  #   |> new()
-  # end
+  def map(vector, fun)
+  def map(%__MODULE__{handle: handle}, fun) when is_function(fun, 1) do
+    handle
+    |> map_impl(fn chunk ->
+      Enum.map(chunk, fun)
+    end)
+    |> then(&%__MODULE__{handle: &1})
+  end
+
+  @doc false
+  def map_impl(_vector, _fun), do: nif_error()
 
 
   @behaviour Access
