@@ -207,16 +207,16 @@ fn map_impl<'a>(env: Env<'a>, vector: VectorResource, unary_fun: Term<'a>) -> Re
     let empty_list = rustler::Term::list_new_empty(env);
     for chunk in chunks {
         let parameters = empty_list.list_prepend(chunk.encode(env));
-        let result : ElixirFunCallResult = rustler_elixir_fun::apply_elixir_fun(env, name, unary_fun, parameters).expect("Expected function call to succeed");
-        println!("{:?}", result.encode(env));
+        let result : ElixirFunCallResult = rustler_elixir_fun::apply_elixir_fun(env, name, unary_fun, parameters)?;
+        // println!("{:?}", result.encode(env));
         // let result : Result<(Atom, Vec<StoredTerm>), rustler::Error> = result.expect("Call result to be a {atom, list(term())}").decode();
         match result {
             Success(StoredTerm::List(mut values)) => {
                 // let mut result = result.expect("Result to be a term akin to {:ok, val}").1;
                 chunk.swap_with_slice(&mut values);
             },
-            other => return Err(rustler::Error::RaiseTerm(Box::new(other)))
-
+            ExceptionRaised(exception) => return Err(rustler::Error::RaiseTerm(Box::new(exception))),
+            other => return Err(rustler::Error::RaiseTerm(Box::new(other))),
         }
     }
     Ok(ResourceArc::new(TermVector(new_vector)))

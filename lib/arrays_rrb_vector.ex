@@ -114,7 +114,7 @@ defmodule ArraysRRBVector do
   def map(%__MODULE__{handle: handle}, fun) when is_function(fun, 1) do
     handle
     |> map_impl(fn chunk ->
-      IO.inspect(chunk, label: :chunk)
+      # IO.inspect(chunk, label: :chunk)
       Enum.map(chunk, fun)
     end)
     |> then(&%__MODULE__{handle: &1})
